@@ -20,7 +20,7 @@ includeDependencies
 
 function main() {
 
-    echo 'Running Enemy Territory Server setup script...'
+    echo 'Running Enemy Territory Legacy Server setup script...'
     # capture desired name of the server
     read -rp "Enter the Server Name with color characters:" servername
     # capture desired password for server

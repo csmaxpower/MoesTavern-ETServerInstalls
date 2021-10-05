@@ -29,10 +29,14 @@ function installET() {
     cd /tmp/etsetup
     wget http://moestavern.site.nfoservers.com/downloads/server/etlegacy-v2.78.0-x86_64.sh
     sudo chmod +x etlegacy-v2.78.0-x86_64.sh
-    printf '\ny\n' | LESS='+q' ./etlegacy-v2.78.0-x86_64.sh
-    mv etlegacy-v2.78.0-x86_64/* ~/et/
-    cd ~/et/
+    yes | ./etlegacy-v2.78.0-x86_64.sh --skip-license
+    rsync -a /tmp/etsetup/* ~/et/
+    wget https://cdn.splashdamage.com/downloads/games/wet/et260b.x86_full.zip
+    unzip et260b.x86_full.zip
+    ./et260b.x86_keygen_V03.run --noexec --target /tmp/etsetup/extracted
+    rsync -a extracted/* ~/et/
     rm -rf /tmp/etsetup
+    cd ~/et/
     cd legacy/
     wget http://moestavern.site.nfoservers.com/downloads/server/legacy_global_configs.zip
     unzip legacy_global_configs.zip
