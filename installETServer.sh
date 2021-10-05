@@ -19,7 +19,7 @@ function setFilePermissions() {
 }
 
 function runSetupScript() {
-    # shellcheck source=./setupLibrary.sh
+    # shellcheck source=./etproSetupLibrary.sh
     source "${current_dir}/etproServerSetup.sh"
 }
 
