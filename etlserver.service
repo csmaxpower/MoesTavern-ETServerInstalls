@@ -1,0 +1,9 @@
+[Unit]
+Description=Wolfenstein Enemy Territory Server
+
+[Service]
+ExecStart=/root/et/etl_start.sh start
+Restart=always
+
+[Install]
+WantedBy=network-up.target
