@@ -37,10 +37,12 @@ function installET() {
     rsync -a extracted/* ~/et/
     rm -rf /tmp/etsetup
     cd ~/et/
-    cd legacy/
+    mkdir -p ~/et/legacy/configs
+    cd /legacy/configs
     wget http://moestavern.site.nfoservers.com/downloads/server/legacy_global_configs.zip
     unzip legacy_global_configs.zip
     rm -rf legacy_global_configs.zip
+    cd ..
     cd ..
     cd etmain/
     wget http://moestavern.site.nfoservers.com/downloads/server/config/etlscrimrotation.cfg
