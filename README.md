@@ -8,21 +8,14 @@ The scripts, system services, configs, and downloads links are baselined to Moe'
 Note that this install script assumes a bare metal Linux server running Ubuntu 20.xx and >.  The system and packages will be updated before the server installation begins.
 
 
-# directions
+# Directions
 
 1.  Run installETLServer.sh  (wget http://moestavern.site.nfoservers.com/downloads/server/installETLServer.sh)
 2.  chmod +x installETServer.sh
 3.  ./installETServer.sh
 
 The necessary setup scripts will then be downloaded and executed.  There will be user prompts for server customization of the following cvars:
-servername
-g_password
-sv_maxclients
-sv_privateclients
-sv_privatepassword
-rconpassword
-refereepassword
-sv_wwwBaseURL
+servername, g_password, sv_maxclients, sv_privateclients, sv_privatepassword, rconpassword, refereepassword, sv_wwwBaseURL
 
 There will then be user prompts for setting an username and password for FTP access of the server.  This will configure the vsftpd service and also write a DENY line in the SSH access file for the new user that was just created to keep things nice and secure.
 
