@@ -27,10 +27,10 @@ function installET() {
     mkdir -p ~/et/
     mkdir -p /tmp/etsetup
     cd /tmp/etsetup
-    wget http://moestavern.site.nfoservers.com/downloads/server/etlegacy-v2.78.1-53-ga1676ec-x86_64.sh
-    sudo chmod +x etlegacy-v2.78.1-53-ga1676ec-x86_64.sh
-    yes | ./etlegacy-v2.78.1-53-ga1676ec-x86_64.sh
-    mv etlegacy-v2.78.1-53-ga1676ec-x86_64/* ~/et/
+    wget http://moestavern.site.nfoservers.com/downloads/server/etlegacy-v2.78.1-136-g67813a7-x86_64.sh
+    sudo chmod +x etlegacy-v2.78.1-136-g67813a7-x86_64.sh
+    yes | ./etlegacy-v2.78.1-136-g67813a7-x86_64.sh
+    mv etlegacy-v2.78.1-136-g67813a7-x86_64/* ~/et/
     cd ~/et/
     rm -rf /tmp/etsetup
     cd legacy/
