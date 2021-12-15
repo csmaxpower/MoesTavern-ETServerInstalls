@@ -10,9 +10,9 @@ Note that this install script assumes a bare metal Linux server running Ubuntu 2
 
 # Directions
 
-1.  Run installETLServer.sh  (wget http://moestavern.site.nfoservers.com/downloads/server/installETLServer.sh)
-2.  chmod +x installETServer.sh
-3.  ./installETServer.sh
+1.  Run installETL(Scrim/Pub)Server.sh  (wget http://moestavern.site.nfoservers.com/downloads/server/installETL(Scrim/Pub)Server.sh)
+2.  chmod +x installETL(Scrim/Pub)Server.sh
+3.  ./installETL(Scrim/Pub)Server.sh
 
 The necessary setup scripts will then be downloaded and executed.  There will be user prompts for server customization of the following cvars:
 servername, g_password, sv_maxclients, sv_privateclients, sv_privatepassword, rconpassword, refereepassword, sv_wwwBaseURL
