@@ -34,9 +34,9 @@ function installET() {
     cd ~/et/
     rm -rf /tmp/etsetup
     cd legacy/
-    wget http://moestavern.site.nfoservers.com/downloads/server/Legacy-Competition-League-Configs.zip
-    unzip Legacy-Competition-League-Configs.zip
-    rm -rf Legacy-Competition-League-Configs.zip
+    wget https://github.com/BystryPL/Legacy-Competition-League-Configs/archive/refs/heads/main.zip
+    unzip main.zip
+    rm -rf main.zip
     cd ..
     cd etmain/
     wget http://moestavern.site.nfoservers.com/downloads/server/config/etlscrimrotation.cfg
