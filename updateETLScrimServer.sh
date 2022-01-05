@@ -2,21 +2,27 @@
 # Author:  MaxPower - notoriusmax@gmail.com
 # GitHub:  https://github.com/randharris/MoesTavern-GameServers/blob/main/server-install/updateETLScrimServer.sh
 
-function getCurrentDir() {
-    local current_dir="${BASH_SOURCE%/*}"
-    if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
-    echo "${current_dir}"
-}
-
 function downloadSetupFiles() {
     local downloadLink=${1}
-    wget ${downloadLink} -O etlegacy-server-update.sh
-    sudo chmod +x etlegacy-server-update.sh
+    #wget ${downloadLink} -O etlegacy-server-update.sh
+    #sudo chmod +x etlegacy-server-update.sh
+    wget ${downloadLink} -O etlegacy-server-update.tar.gz
 }
 
 function runUpdateScript() {
-    # shellcheck source=./updateETLScrimServer.sh
-    source "${current_dir}/etlegacy-server-update.sh"
+    # remove old pk3 before running update so correct version starts with service restart
+    cd legacy/
+    rm -rf *.pk3
+    cd ..
+    mkdir -p ~/et/etupdate
+    tar -xvf etlegacy-server-update.tar.gz -C ~/et/etupdate
+    mv ~/et/etupdate/et*/etl ~/et/etl
+    mv ~/et/etupdate/et*/etlded ~/et/etlded
+    mv ~/et/etupdate/et*/legacy/*.pk3 ~/et/legacy/
+    mv ~/et/etupdate/et*/legacy/qagame.mp.x86_64.so ~/et/legacy/
+    mv ~/et/etupdate/et*/legacy/GeoIP.dat ~/et/legacy/
+    rm -rf etupdate/
+    rm -rf etlegacy-server-update.tar.gz
 }
 
 function setFilePermissions() {
@@ -31,17 +37,18 @@ function restartETLServer() {
     sudo systemctl restart etlserver.service
 }
 function downloadServerConfigs() {
-  local servername=${2}
+  local servername=${1}
+  local token=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
   cd legacy/
   wget https://github.com/BystryPL/Legacy-Competition-League-Configs/archive/refs/heads/main.zip
-  unzip Legacy-Competition-League-Configs.zip
-  rm -rf Legacy-Competition-League-Configs.zip
+  unzip main.zip
+  mv Legacy-Competition-League-Configs-main/configs/* ~/et/legacy/configs/
+  mv Legacy-Competition-League-Configs-main/mapscripts/* ~/et/legacy/mapscripts/
+  rm -rf main.zip
+  rm -rf Legacy-Competition-League-Configs-main/
   cd ..
   cd etmain/
-  curl -H 'Authorization: token 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' \
-  -H 'Accept: application/vnd.github.v3.raw' \
-  -O \
-  -L https://api.github.com/repos/randharris/MoesTavern-GameServers/main/moes-legacy-"${servername}"/etmain/etl_server.cfg
+  curl -v -o etl_server.cfg -H "Authorization: token $token" https://raw.githubusercontent.com/randharris/MoesTavern-GameServers/main/moes-legacy-"${servername}"/etmain/etl_server.cfg
   cd ..
 }
 
@@ -62,7 +69,6 @@ function main () {
   downloadServerConfigs "${servername}"
   echo "Restarting ETL Server Service..."
   restartETLServer
-
+  echo "Update Complete..."
 }
-current_dir=$(getCurrentDir)
 main
