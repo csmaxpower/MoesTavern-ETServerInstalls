@@ -38,7 +38,7 @@ function restartETLServer() {
 }
 function downloadServerConfigs() {
   local servername=${1}
-  local token=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
+  local token=${2}
   cd legacy/
   wget https://github.com/BystryPL/Legacy-Competition-League-Configs/archive/refs/heads/main.zip
   unzip main.zip
@@ -57,6 +57,7 @@ function main () {
   # capture desired redirect and file download URL
   read -rp "Set the URL for update download:" downloadLink
   read -rp "Which Server is being updated (Country-Location eu-uk,na-ny):" servername
+  read -rp "Provide Git Repository Authorization Token:" token
   echo "Downloading setup files..."
   downloadSetupFiles "${downloadLink}"
   echo "Running Setup..."
@@ -66,7 +67,7 @@ function main () {
   echo "Restarting FTP..."
   restartFTP
   echo "Downloading Server configurations..."
-  downloadServerConfigs "${servername}"
+  downloadServerConfigs "${servername} ${token}"
   echo "Restarting ETL Server Service..."
   restartETLServer
   echo "Update Complete..."
