@@ -2,7 +2,7 @@
 Description=Wolfenstein Enemy Territory Server
 
 [Service]
-ExecStart=/root/et/etl_start.sh start
+ExecStart=~/et/etl_start.sh start
 Restart=always
 
 [Install]

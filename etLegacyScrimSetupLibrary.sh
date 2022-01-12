@@ -24,19 +24,26 @@ function installET() {
     local refereepassword=${6}
     local ShoutcastPassword=${7}
     local sv_wwwBaseURL=${8}
+    local downloadLink=${9}
+
     mkdir -p ~/et/
     mkdir -p /tmp/etsetup
     cd /tmp/etsetup
-    wget http://moestavern.site.nfoservers.com/downloads/server/etlegacy-v2.78.1-136-g67813a7-x86_64.sh
-    sudo chmod +x etlegacy-v2.78.1-136-g67813a7-x86_64.sh
-    yes | ./etlegacy-v2.78.1-136-g67813a7-x86_64.sh
-    mv etlegacy-v2.78.1-136-g67813a7-x86_64/* ~/et/
+    wget ${downloadLink} -O etlegacy-server-install.sh
+    sudo chmod +x etlegacy-server-install.sh
+    yes | ./etlegacy-server-install.sh
+    mv etlegacy-v*/* ~/et/
     cd ~/et/
     rm -rf /tmp/etsetup
     cd legacy/
+    mkdir configs/
+    mkdir mapscripts/
     wget https://github.com/BystryPL/Legacy-Competition-League-Configs/archive/refs/heads/main.zip
     unzip main.zip
+    mv Legacy-Competition-League-Configs-main/configs/* ~/et/legacy/configs/
+    mv Legacy-Competition-League-Configs-main/mapscripts/* ~/et/legacy/mapscripts/
     rm -rf main.zip
+    rm -rf Legacy-Competition-League-Configs-main/
     cd ..
     cd etmain/
     wget http://moestavern.site.nfoservers.com/downloads/server/config/etlscrimrotation.cfg
@@ -109,9 +116,9 @@ function configureETServices() {
     wget http://moestavern.site.nfoservers.com/downloads/server/etlserver.service
     wget http://moestavern.site.nfoservers.com/downloads/server/etlrestart.service
     wget http://moestavern.site.nfoservers.com/downloads/server/etlmonitor.timer
-    mv etlserver.service /etc/systemd/system/etlserver.service
-    mv etlrestart.service /etc/systemd/system/etlrestart.service
-    mv etlmonitor.timer /etc/systemd/system/etlmonitor.timer
+    sudo mv etlserver.service /etc/systemd/system/etlserver.service
+    sudo mv etlrestart.service /etc/systemd/system/etlrestart.service
+    sudo mv etlmonitor.timer /etc/systemd/system/etlmonitor.timer
     sudo systemctl daemon-reload
     sudo systemctl enable etlserver.service
     sudo systemctl enable etlmonitor.timer
@@ -144,10 +151,11 @@ function configureVSFTP() {
     sudo apt install -y vsftpd
     cd ~/et/
     wget http://moestavern.site.nfoservers.com/downloads/server/vsftpd.conf
-    mv vsftpd.conf /etc/vsftpd.conf
+    yes | sudo mv vsftpd.conf /etc/vsftpd.conf
     # set FTP permissions for new user
     sudo usermod -d ~/et/ "${username}"
     sudo chown -R "${username}":"${username}" ~/
+    sudo chown root:root /etc/vsftpd.conf
     sudo systemctl restart vsftpd
 }
 

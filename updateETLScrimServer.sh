@@ -38,7 +38,7 @@ function restartETLServer() {
 }
 function downloadServerConfigs() {
   local servername=${1}
-  local token=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
+  local token=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
   cd legacy/
   wget https://github.com/BystryPL/Legacy-Competition-League-Configs/archive/refs/heads/main.zip
   unzip main.zip
