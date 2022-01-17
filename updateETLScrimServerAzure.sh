@@ -19,19 +19,19 @@ function runUpdateScript() {
     cd legacy/
     rm -rf *.pk3
     cd ..
-    mkdir -p ~/et/etupdate
-    tar -xvf etlegacy-server-update.tar.gz -C ~/et/etupdate
-    mv ~/et/etupdate/et*/etl ~/et/etl
-    mv ~/et/etupdate/et*/etlded ~/et/etlded
-    mv ~/et/etupdate/et*/legacy/*.pk3 ~/et/legacy/
-    mv ~/et/etupdate/et*/legacy/qagame.mp.x86_64.so ~/et/legacy/
-    mv ~/et/etupdate/et*/legacy/GeoIP.dat ~/et/legacy/
+    mkdir -p /home/moesroot/et/etupdate
+    tar -xvf etlegacy-server-update.tar.gz -C /home/moesroot/et/etupdate
+    mv /home/moesroot/et/etupdate/et*/etl /home/moesroot/et/etl
+    mv /home/moesroot/et/etupdate/et*/etlded /home/moesroot/et/etlded
+    mv /home/moesroot/et/etupdate/et*/legacy/*.pk3 /home/moesroot/et/legacy/
+    mv /home/moesroot/et/etupdate/et*/legacy/qagame.mp.x86_64.so /home/moesroot/et/legacy/
+    mv /home/moesroot/et/etupdate/et*/legacy/GeoIP.dat /home/moesroot/et/legacy/
     rm -rf etupdate/
     rm -rf etlegacy-server-update.tar.gz
 }
 
 function setFilePermissions() {
-    sudo chown -R moesftp:moesftp ~/
+    sudo chown -R moesftp:moesftp /home/moesroot/
 }
 
 function restartFTP() {
@@ -47,8 +47,8 @@ function downloadServerConfigs() {
   cd legacy/
   sudo wget https://github.com/BystryPL/Legacy-Competition-League-Configs/archive/refs/heads/main.zip
   unzip main.zip
-  mv Legacy-Competition-League-Configs-main/configs/* ~/et/legacy/configs/
-  mv Legacy-Competition-League-Configs-main/mapscripts/* ~/et/legacy/mapscripts/
+  mv Legacy-Competition-League-Configs-main/configs/* /home/moesroot/et/legacy/configs/
+  mv Legacy-Competition-League-Configs-main/mapscripts/* /home/moesroot/et/legacy/mapscripts/
   rm -rf main.zip
   rm -rf Legacy-Competition-League-Configs-main/
   cd ..
@@ -58,7 +58,7 @@ function downloadServerConfigs() {
 }
 
 function main () {
-  cd ~/et
+  cd /home/moesroot/et
   # capture desired redirect and file download URL
   read -rp "Set the URL for update download:" downloadLink
   read -rp "Provide Git Repository Authorization Token:" token
