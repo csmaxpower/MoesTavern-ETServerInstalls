@@ -17,17 +17,17 @@ function downloadSetupFiles() {
 function runUpdateScript() {
     # remove old pk3 before running update so correct version starts with service restart
     cd legacy/
-    rm -rf *.pk3
+    sudo rm -rf *.pk3
     cd ..
-    mkdir -p /home/moesroot/et/etupdate
-    tar -xvf etlegacy-server-update.tar.gz -C /home/moesroot/et/etupdate
-    mv /home/moesroot/et/etupdate/et*/etl /home/moesroot/et/etl
-    mv /home/moesroot/et/etupdate/et*/etlded /home/moesroot/et/etlded
-    mv /home/moesroot/et/etupdate/et*/legacy/*.pk3 /home/moesroot/et/legacy/
-    mv /home/moesroot/et/etupdate/et*/legacy/qagame.mp.x86_64.so /home/moesroot/et/legacy/
-    mv /home/moesroot/et/etupdate/et*/legacy/GeoIP.dat /home/moesroot/et/legacy/
-    rm -rf etupdate/
-    rm -rf etlegacy-server-update.tar.gz
+    sudo mkdir -p /home/moesroot/et/etupdate
+    sudo tar -xvf etlegacy-server-update.tar.gz -C /home/moesroot/et/etupdate
+    sudo mv /home/moesroot/et/etupdate/et*/etl /home/moesroot/et/etl
+    sudo mv /home/moesroot/et/etupdate/et*/etlded /home/moesroot/et/etlded
+    sudo mv /home/moesroot/et/etupdate/et*/legacy/*.pk3 /home/moesroot/et/legacy/
+    sudo mv /home/moesroot/et/etupdate/et*/legacy/qagame.mp.x86_64.so /home/moesroot/et/legacy/
+    sduo mv /home/moesroot/et/etupdate/et*/legacy/GeoIP.dat /home/moesroot/et/legacy/
+    sudo rm -rf etupdate/
+    sduo rm -rf etlegacy-server-update.tar.gz
 }
 
 function setFilePermissions() {
@@ -47,13 +47,13 @@ function downloadServerConfigs() {
   cd legacy/
   sudo wget https://github.com/BystryPL/Legacy-Competition-League-Configs/archive/refs/heads/main.zip
   unzip main.zip
-  mv Legacy-Competition-League-Configs-main/configs/* /home/moesroot/et/legacy/configs/
-  mv Legacy-Competition-League-Configs-main/mapscripts/* /home/moesroot/et/legacy/mapscripts/
-  rm -rf main.zip
-  rm -rf Legacy-Competition-League-Configs-main/
+  sudo mv Legacy-Competition-League-Configs-main/configs/* /home/moesroot/et/legacy/configs/
+  sudo mv Legacy-Competition-League-Configs-main/mapscripts/* /home/moesroot/et/legacy/mapscripts/
+  sudo rm -rf main.zip
+  sudo rm -rf Legacy-Competition-League-Configs-main/
   cd ..
   cd etmain/
-  curl -v -o etl_server.cfg -H "Authorization: token $token" https://raw.githubusercontent.com/randharris/MoesTavern-GameServers/main/moes-legacy-"${servername}"/etmain/etl_server.cfg
+  sudo curl -v -o etl_server.cfg -H "Authorization: token $token" https://raw.githubusercontent.com/randharris/MoesTavern-GameServers/main/moes-legacy-"${servername}"/etmain/etl_server.cfg
   cd ..
 }
 
