@@ -15,7 +15,7 @@ function downloadSetupFiles() {
     sudo wget ${downloadLink} -O etlegacy-server-update.tar.gz
 }
 
-function runUpdateScript() {
+function runUpdate() {
     local current_dir=${1}
     # remove old pk3 before running update so correct version starts with service restart
     cd legacy/
@@ -74,7 +74,7 @@ function downloadServerConfigs() {
   cd ..
 }
 
-function main () {
+function updateServer () {
   # capture desired redirect and file download URL
   local downloadLink=${1}
   local authToken=${2}
@@ -86,7 +86,7 @@ function main () {
   echo "Downloading setup files..."
   downloadSetupFiles "${downloadLink}"
   echo "Running Setup..."
-  runUpdateScript "${installPath}"
+  runUpdate "${installPath}"
   echo "Setting permissions for installation..."
   setFilePermissions "${installPath}"
   echo "Restarting FTP..."
@@ -97,5 +97,27 @@ function main () {
   restartETLServer
   echo "Update Complete..."
 }
+
+function main () {
+  # capture arguments passed from bot to local variables
+  local downloadLink=${1}
+  local authToken=${2}
+  local repopath=${3}
+  local servercfg=${4}
+  local installPath=${5}
+  local maplink=${6}
+  local mapname=${7}
+  local fileext=${8}
+  local command=${9}
+
+  if [[ "${command}" == "addmap" ]]; then
+    echo "Adding map to server..."
+    addMap "${installPath}" "${maplink}" "${mapname}" "${fileext}"
+  else
+    echo "Starting Server Update Process..."
+    updateServer "${downloadLink}" "${authToken}" "${repopath}" "${servercfg}" "${installPath}"
+  fi
+
+}
 #current_dir=$(getCurrentDir)
-main "${1}" "${2}" "${3}" "${4}" "${5}"
+main "${1}" "${2}" "${3}" "${4}" "${5}" "${6}" "${7}" "${8}" "${9}"
