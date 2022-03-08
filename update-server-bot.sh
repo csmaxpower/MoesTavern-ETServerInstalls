@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author:  MaxPower - notoriusmax@gmail.com
-# GitHub:  https://github.com/randharris/MoesTavern-GameServers/blob/main/server-install/updateETLScrimServerAzurebot.sh
+# GitHub:  https://github.com/randharris/MoesTavern-ETServerInstalls/blob/main/update-server-bot.sh
 
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
@@ -44,6 +44,18 @@ function restartFTP() {
 function restartETLServer() {
     sudo systemctl restart etlserver.service
 }
+
+function addMap() {
+    local current_dir=${1}
+    local mapLink=${2}
+    local mapName=${3}
+    local fileext=${4}
+
+    cd ${current_dir}/etmain
+    sudo wget ${mapLink} -O "${mapName}.${fileext}"
+    echo "${mapName} has been successfully added to the server."
+}
+
 function downloadServerConfigs() {
   local current_dir=${1}
   local token=${2}
