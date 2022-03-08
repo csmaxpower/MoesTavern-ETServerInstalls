@@ -25,29 +25,30 @@ function installET() {
     local ShoutcastPassword=${7}
     local sv_wwwBaseURL=${8}
     local downloadLink=${9}
+    local current_dir=${10}
 
-    mkdir -p /home/moesroot/et/
-    mkdir -p /home/moesroot/tmp/etsetup
-    cd /home/moesroot/tmp/etsetup
-    wget ${downloadLink} -O etlegacy-server-install.sh
+    sudo mkdir -p ${current_dir}/et/
+    sudo mkdir -p ${current_dir}/tmp/etsetup
+    cd ${current_dir}/tmp/etsetup
+    sudo wget ${downloadLink} -O etlegacy-server-install.sh
     sudo chmod +x etlegacy-server-install.sh
     yes | ./etlegacy-server-install.sh
-    mv etlegacy-v*/* /home/moesroot/et/
-    cd /home/moesroot/et/
-    rm -rf /home/moesroot/tmp/etsetup
+    sudo mv etlegacy-v*/* ${current_dir}/et/
+    cd ${current_dir}/et/
+    rm -rf ${current_dir}/tmp/etsetup
     cd legacy/
     sudo mkdir configs/
     sudo mkdir mapscripts/
-    wget https://github.com/BystryPL/Legacy-Competition-League-Configs/archive/refs/heads/main.zip
+    sudo wget https://github.com/BystryPL/Legacy-Competition-League-Configs/archive/refs/heads/main.zip
     unzip main.zip
-    mv Legacy-Competition-League-Configs-main/configs/* /home/moesroot/et/legacy/configs/
-    mv Legacy-Competition-League-Configs-main/mapscripts/* /home/moesroot/et/legacy/mapscripts/
-    rm -rf main.zip
-    rm -rf Legacy-Competition-League-Configs-main/
+    sudo mv Legacy-Competition-League-Configs-main/configs/* ${current_dir}/et/legacy/configs/
+    sudo mv Legacy-Competition-League-Configs-main/mapscripts/* ${current_dir}/et/legacy/mapscripts/
+    sudo rm -rf main.zip
+    sudo rm -rf Legacy-Competition-League-Configs-main/
     cd ..
     cd etmain/
-    wget http://moestavern.site.nfoservers.com/downloads/server/config/etlscrimrotation.cfg
-    wget http://moestavern.site.nfoservers.com/downloads/server/config/etl_server.cfg -O etl_server.cfg
+    sudo wget http://moestavern.site.nfoservers.com/downloads/server/config/etlscrimrotation.cfg
+    sudo wget http://moestavern.site.nfoservers.com/downloads/server/config/etl_server.cfg -O etl_server.cfg
     sudo sed -i 's/set sv_hostname ""/set sv_hostname '"\"${servername}\""'/' etl_server.cfg
     sudo sed -i 's/set g_password ""/set g_password '"\"${g_password}\""'/' etl_server.cfg
     sudo sed -i 's/set sv_privateclients ""/set sv_privateclients '"\"${sv_privateclients}\""'/' etl_server.cfg
@@ -62,60 +63,64 @@ function installET() {
 # installation of maps for ETL
 function installMaps() {
     cd etmain/
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/adlernest.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_adlernest_v3.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/badplace4_rc.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/braundorf_b4.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/bremen_b3.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/crevasse_b3.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/ctf_multi.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/decay_sw.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/element_b4_1.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/erdenberg_t2.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_beach.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_headshot.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_headshot2_b2.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_ice.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_ice_v11.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_ufo_final.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/frostbite.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_frostbite_v16.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/karsiah_te2.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/missile_b3.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/mp_sillyctf.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/osiris_final.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/reactor_final.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/rifletennis_te.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/rifletennis_te2.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sos_secret_weapon.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sp_delivery_te.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_sp_delivery_v3.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/supply.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_supply_v9.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_battery.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_goldrush_te.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_oasis_b3.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/tc_base.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/te_escape2.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/te_escape2_fixed.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/te_valhalla.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/venice_ne4.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/adlernest.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_adlernest_v3.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/badplace4_rc.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/braundorf_b4.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/bremen_b3.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/crevasse_b3.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/ctf_multi.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/decay_sw.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/element_b4_1.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/erdenberg_t2.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_beach.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_headshot.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_headshot2_b2.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_ice.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_ice_v11.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_ufo_final.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/frostbite.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_frostbite_v16.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/karsiah_te2.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/missile_b3.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/mp_sillyctf.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/osiris_final.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/reactor_final.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/rifletennis_te.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/rifletennis_te2.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sos_secret_weapon.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sp_delivery_te.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_sp_delivery_v3.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/supply.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_supply_v9.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_battery.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_goldrush_te.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_oasis_b3.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/tc_base.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/te_escape2.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/te_escape2_fixed.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/te_valhalla.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/venice_ne4.pk3
     cd ..
 }
 
 # downloads and places the start script for ETL which includes game path, port, etc.
 function configureStartScript() {
-    cd /home/moesroot/et/
-    wget http://moestavern.site.nfoservers.com/downloads/server/etl_start.sh
-    chmod +x /home/moesroot/et/etl_start.sh
+    local current_dir=${1}
+
+    cd ${current_dir}/et/
+    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etl_start.sh
+    sudo chmod +x ${current_dir}/et/etl_start.sh
 }
 
 # downloads and places the systemd linux service that runs ETL.  Stop, Stop, Restart, and enabled on Startup.
 function configureETServices() {
-    cd /home/moesroot/et/
-    wget http://moestavern.site.nfoservers.com/downloads/server/etlserver.service
-    wget http://moestavern.site.nfoservers.com/downloads/server/etlrestart.service
-    wget http://moestavern.site.nfoservers.com/downloads/server/etlmonitor.timer
+    local current_dir=${1}
+
+    cd ${current_dir}/et/
+    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlserver.service
+    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlrestart.service
+    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlmonitor.timer
     sudo mv etlserver.service /etc/systemd/system/etlserver.service
     sudo mv etlrestart.service /etc/systemd/system/etlrestart.service
     sudo mv etlmonitor.timer /etc/systemd/system/etlmonitor.timer
@@ -148,13 +153,15 @@ function setFTPUserPass() {
 
 # installs and configures VSFTPD
 function configureVSFTP() {
+    local current_dir=${1}
+
     sudo apt install -y vsftpd
-    cd /home/moesroot/et/
-    wget http://moestavern.site.nfoservers.com/downloads/server/vsftpd.conf
+    cd ${current_dir}/et/
+    sudo wget http://moestavern.site.nfoservers.com/downloads/server/vsftpd.conf
     yes | sudo mv vsftpd.conf /etc/vsftpd.conf
     # set FTP permissions for new user
-    sudo usermod -d /home/moesroot/et/ "${username}"
-    sudo chown -R "${username}":"${username}" /home/moesroot/
+    sudo usermod -d ${current_dir}/et/ "${username}"
+    sudo chown -R "${username}":"${username}" ${current_dir}
     sudo chown root:root /etc/vsftpd.conf
     sudo systemctl restart vsftpd
 }
