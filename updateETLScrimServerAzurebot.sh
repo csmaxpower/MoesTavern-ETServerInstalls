@@ -1,6 +1,7 @@
 #!/bin/bash
 # Author:  MaxPower - notoriusmax@gmail.com
-# GitHub:  https://github.com/randharris/MoesTavern-GameServers/blob/main/server-install/updateETLScrimServerAzure.sh
+# GitHub:  https://github.com/randharris/MoesTavern-GameServers/blob/main/server-install/updateETLScrimServerAzurebot.sh
+
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
     if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
@@ -25,9 +26,9 @@ function runUpdateScript() {
     sudo mv /home/moesroot/et/etupdate/et*/etlded /home/moesroot/et/etlded
     sudo mv /home/moesroot/et/etupdate/et*/legacy/*.pk3 /home/moesroot/et/legacy/
     sudo mv /home/moesroot/et/etupdate/et*/legacy/qagame.mp.x86_64.so /home/moesroot/et/legacy/
-    sudo mv /home/moesroot/et/etupdate/et*/legacy/GeoIP.dat /home/moesroot/et/legacy/
+    sduo mv /home/moesroot/et/etupdate/et*/legacy/GeoIP.dat /home/moesroot/et/legacy/
     sudo rm -rf etupdate/
-    sudo rm -rf etlegacy-server-update.tar.gz
+    sduo rm -rf etlegacy-server-update.tar.gz
 }
 
 function setFilePermissions() {
@@ -60,9 +61,11 @@ function downloadServerConfigs() {
 function main () {
   cd /home/moesroot/et
   # capture desired redirect and file download URL
-  read -rp "Set the URL for update download:" downloadLink
-  read -rp "Provide Git Repository Authorization Token:" token
-  read -rp "Which Server is being updated (Country-Location eu-uk,na-ny):" servername
+  local downloadLink=${1}
+  local authToken=${2}
+  local servername=${3}
+
+  cd /home/moesroot/et
   echo "Downloading setup files..."
   downloadSetupFiles "${downloadLink}"
   echo "Running Setup..."
@@ -72,10 +75,10 @@ function main () {
   echo "Restarting FTP..."
   restartFTP
   echo "Downloading Server configurations..."
-  downloadServerConfigs "${token}" "${servername}"
+  downloadServerConfigs "${authToken}" "${servername}"
   echo "Restarting ETL Server Service..."
   restartETLServer
   echo "Update Complete..."
 }
 current_dir=$(getCurrentDir)
-main
+main "${1}" "${2}" "${3}"

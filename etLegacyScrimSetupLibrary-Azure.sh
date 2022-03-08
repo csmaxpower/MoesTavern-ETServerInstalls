@@ -63,24 +63,23 @@ function installET() {
 function installMaps() {
     cd etmain/
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/adlernest.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_adlernest_v2.pk3
+    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_adlernest_v3.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/badplace4_rc.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/braundorf_b4.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/bremen_b3.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/crevasse_b3.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/ctf_multi.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/decay_b7.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/decay_sw.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/element_b4_1.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/erdenberg_t1.pk3
+    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/erdenberg_t2.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_beach.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_headshot.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_headshot2_b2.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_ice.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_ice_v8.pk3
+    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_ice_v11.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_ufo_final.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/frostbite.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_frostbite_v15.pk3
+    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_frostbite_v16.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/karsiah_te2.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/missile_b3.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/mp_sillyctf.pk3
@@ -90,8 +89,9 @@ function installMaps() {
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/rifletennis_te2.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sos_secret_weapon.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sp_delivery_te.pk3
+    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_sp_delivery_v3.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/supply.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_supply_v6.pk3
+    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_supply_v9.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_battery.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_goldrush_te.pk3
     wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_oasis_b3.pk3
@@ -135,7 +135,7 @@ function addUserAccount() {
     # set password for new user.  will prompt for input and confirmation. do not want to read plain text as it will cypher to /etc/passwd
     setFTPUserPass "${username}"
     # disable new user from being able to ssh into the server
-    echo "DenyUsers ${username}" | sudo tee -a /etc/ssh/sshd_config
+    sudo echo "DenyUsers ${username}" | sudo tee -a /etc/ssh/sshd_config
     sudo systemctl restart sshd
 }
 
