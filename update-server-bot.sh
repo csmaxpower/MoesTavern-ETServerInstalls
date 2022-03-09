@@ -51,9 +51,9 @@ function addMap() {
     local mapName=${3}
     local fileext=${4}
 
-    cd ${current_dir}/etmain
+    cd ${current_dir}/et/etmain/
     sudo wget ${mapLink} -O "${mapName}.${fileext}"
-    echo "${mapName} has been successfully added to the server."
+    echo "${mapName}.${fileext}" + "has been successfully added to the server."
 }
 
 function downloadServerConfigs() {
