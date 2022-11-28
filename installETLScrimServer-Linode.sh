@@ -9,20 +9,20 @@ function getCurrentDir() {
 }
 
 function downloadSetupFiles() {
-    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etLegacyScrimServerSetup-Azure.sh
-    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etLegacyScrimSetupLibrary-Azure.sh
+    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etLegacyScrimServerSetup-Linode.sh
+    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etLegacyScrimSetupLibrary-Linode.sh
     sudo wget http://moestavern.site.nfoservers.com/downloads/server/update-server-bot.sh
 }
 
 function setFilePermissions() {
-    sudo chmod +x etLegacyScrimServerSetup-Azure.sh
-    sudo chmod +x etLegacyScrimSetupLibrary-Azure.sh
+    sudo chmod +x etLegacyScrimServerSetup-Linode.sh
+    sudo chmod +x etLegacyScrimSetupLibrary-Linode.sh
     sudo chmod +x update-server-bot.sh
 }
 
 function runSetupScript() {
     # shellcheck source=./setupLibrary.sh
-    source "${current_dir}/etLegacyScrimServerSetup-Azure.sh"
+    source "${current_dir}/etLegacyScrimServerSetup-Linode.sh"
 }
 
 function main () {

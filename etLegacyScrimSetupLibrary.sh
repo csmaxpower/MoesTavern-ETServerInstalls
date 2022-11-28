@@ -62,44 +62,46 @@ function installET() {
 # installation of maps for ETL
 function installMaps() {
     cd etmain/
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/adlernest.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_adlernest_v2.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/badplace4_rc.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/braundorf_b4.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/bremen_b3.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/crevasse_b3.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/ctf_multi.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/decay_b7.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/decay_sw.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/element_b4_1.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/erdenberg_t1.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_beach.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_headshot.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_headshot2_b2.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_ice.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_ice_v8.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_ufo_final.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/frostbite.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_frostbite_v15.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/karsiah_te2.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/missile_b3.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/mp_sillyctf.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/osiris_final.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/reactor_final.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/rifletennis_te.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/rifletennis_te2.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sos_secret_weapon.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sp_delivery_te.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/supply.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_supply_v6.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_battery.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_goldrush_te.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_oasis_b3.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/tc_base.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/te_escape2.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/te_escape2_fixed.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/te_valhalla.pk3
-    wget http://moestavern.site.nfoservers.com/downloads/et/etmain/venice_ne4.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/adlernest.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_adlernest_v4.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/badplace4_rc.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_bergen_v9.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/braundorf_b4.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/bremen_b3.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/crevasse_b3.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/ctf_multi.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/decay_sw.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/element_b4_1.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/erdenberg_t2.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_beach.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_brewdog_b6.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_headshot.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_headshot2_b2.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_ice.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_ice_v12.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/et_ufo_final.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/frostbite.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_frostbite_v17.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/karsiah_te2.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/missile_b3.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/mp_sillyctf.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/osiris_final.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/reactor_final.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/rifletennis_te.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/rifletennis_te2.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sos_secret_weapon.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sp_delivery_te.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_sp_delivery_v5.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/supply.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_supply_v11.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_battery.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_goldrush_te.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_oasis_b3.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/tc_base.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/te_escape2.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/te_escape2_fixed.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/te_valhalla.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/venice_ne4.pk3
     cd ..
 }
 

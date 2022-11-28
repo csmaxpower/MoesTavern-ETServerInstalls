@@ -45,7 +45,7 @@ function downloadServerConfigs() {
   local token=${1}
   local servername=${2}
   cd legacy/
-  sudo wget https://github.com/BystryPL/Legacy-Competition-League-Configs/archive/refs/heads/main.zip
+  sudo wget https://github.com/ET-Legacy-Competitive/Legacy-Competition-League-Configs/archive/refs/heads/main.zip
   unzip main.zip
   sudo mv Legacy-Competition-League-Configs-main/configs/* /home/moesroot/et/legacy/configs/
   sudo mv Legacy-Competition-League-Configs-main/mapscripts/* /home/moesroot/et/legacy/mapscripts/

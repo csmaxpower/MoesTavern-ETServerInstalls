@@ -32,8 +32,8 @@ function installET() {
     cd ${current_dir}/tmp/etsetup
     sudo wget ${downloadLink} -O etlegacy-server-install.sh
     sudo chmod +x etlegacy-server-install.sh
-    yes | ./etlegacy-server-install.sh
-    sudo mv etlegacy-v*/* ${current_dir}/et/
+    yes | ./etlegacy-server-install.sh --skip-license
+    sudo mv ${current_dir}/tmp/etsetup/* ${current_dir}/et/
     cd ${current_dir}/et/
     rm -rf ${current_dir}/tmp/etsetup
     cd legacy/
@@ -120,14 +120,9 @@ function configureETServices() {
     local current_dir=${1}
 
     cd ${current_dir}/et/
-    # check current directory to download correct server service configuration
-    if [["${current_dir}" == *"moesroot"*]]; then
-      sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlserverazure.service
-      sudo mv etlserverazure.service /etc/systemd/system/etlserver.service
-    fi
-      sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlservergeneral.service
-      sudo mv etlservergeneral.service /etc/systemd/system/etlserver.service
 
+    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlservergeneral.service
+    sudo mv etlservergeneral.service /etc/systemd/system/etlserver.service
     sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlrestart.service
     sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlmonitor.timer
     sudo mv etlrestart.service /etc/systemd/system/etlrestart.service
@@ -149,8 +144,8 @@ function addUserAccount() {
     # set password for new user.  will prompt for input and confirmation. do not want to read plain text as it will cypher to /etc/passwd
     setFTPUserPass "${username}"
     # disable new user from being able to ssh into the server
-    sudo echo "DenyUsers ${username}" | sudo tee -a /etc/ssh/sshd_config
-    sudo systemctl restart sshd
+    sudo echo "DenyUsers ${username}" | sudo tee -a /etc/ssh/ssh_config
+    sudo systemctl restart ssh
 }
 
 function setFTPUserPass() {

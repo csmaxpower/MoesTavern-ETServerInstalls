@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-"${DIR}/etlded" \
+"${DIR}/etlded.x86_64" \
     +set dedicated 2 \
     +set vm_game 0 \
     +set net_port 27960 \
