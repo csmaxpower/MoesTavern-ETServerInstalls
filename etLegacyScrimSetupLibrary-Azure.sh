@@ -94,7 +94,7 @@ function installMaps() {
     sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sp_delivery_te.pk3
     sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_sp_delivery_v5.pk3
     sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/supply.pk3
-    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_supply_v11.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_supply_v12.pk3
     sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_battery.pk3
     sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_goldrush_te.pk3
     sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_oasis_b3.pk3
