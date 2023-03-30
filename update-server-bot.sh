@@ -98,6 +98,7 @@ function downloadServerConfigs() {
   local repopath=${3}
   local mapscriptrepo=${4}
   local servercfg=${5}
+  local statslua="luascripts/game-stats-web.lua"
 
   echo "Downloading competition and mapscript configurations to /legacy..."
   cd ${current_dir}/et/legacy/
@@ -107,8 +108,13 @@ function downloadServerConfigs() {
   sudo mv Legacy-Competition-League-Configs-main/mapscripts/* ${current_dir}/et/legacy/mapscripts/
   sudo rm -rf configs.zip
   sudo rm -rf Legacy-Competition-League-Configs-main/
-  cd ..
-  cd etmain/
+  cd ${current_dir}/et/legacy/configs/
+  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${statslua}\"'#' legacy1.config
+  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${statslua}\"'#' legacy3.config
+  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${statslua}\"'#' legacy3-snaps.config
+  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${statslua}\"'#' legacy5.config
+  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${statslua}\"'#' legacy6.config
+  cd ${current_dir}/et/etmain/
   echo "Downloading primary server config to /etmain..."
   sudo curl -v -o etl_server.cfg -H "Authorization: token $token" "${repopath}/etmain/${servercfg}"
   cd ..
