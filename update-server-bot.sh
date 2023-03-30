@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author:  MaxPower - notoriusmax@gmail.com
-# GitHub:  https://github.com/randharris/MoesTavern-ETServerInstalls/blob/main/update-server-bot.sh
+# GitHub:  https://github.com/csmaxpower/MoesTavern-ETServerInstalls/blob/main/update-server-bot.sh
 
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
@@ -98,7 +98,12 @@ function downloadServerConfigs() {
   local repopath=${3}
   local mapscriptrepo=${4}
   local servercfg=${5}
-  local statslua="luascripts/game-stats-web.lua"
+  local legacy1_lua=${6}
+  local legacy3_lua=${7}
+  local legacy3_snaps_lua=${8}
+  local legacy5_lua=${9}
+  local legacy6_lua=${10}
+  local practice_lua=${11}
 
   echo "Downloading competition and mapscript configurations to /legacy..."
   cd ${current_dir}/et/legacy/
@@ -109,11 +114,12 @@ function downloadServerConfigs() {
   sudo rm -rf configs.zip
   sudo rm -rf Legacy-Competition-League-Configs-main/
   cd ${current_dir}/et/legacy/configs/
-  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${statslua}\"'#' legacy1.config
-  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${statslua}\"'#' legacy3.config
-  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${statslua}\"'#' legacy3-snaps.config
-  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${statslua}\"'#' legacy5.config
-  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${statslua}\"'#' legacy6.config
+  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy1_lua}\"'#' legacy1.config
+  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy3_lua}\"'#' legacy3.config
+  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy3_snaps_lua}\"'#' legacy3-snaps.config
+  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy5_lua}\"'#' legacy5.config
+  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy6_lua}\"'#' legacy6.config
+  sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${practice_lua}\"'#' practice.config
   cd ${current_dir}/et/etmain/
   echo "Downloading primary server config to /etmain..."
   sudo curl -v -o etl_server.cfg -H "Authorization: token $token" "${repopath}/etmain/${servercfg}"
@@ -130,6 +136,12 @@ function updateServer () {
   local servercfg=${5}
   local installPath=${6}
   local systemservice=${7}
+  local legacy1_lua=${8}
+  local legacy3_lua=${9}
+  local legacy3_snaps_lua=${10}
+  local legacy5_lua=${11}
+  local legacy6_lua=${12}
+  local practice_lua=${13}
 
   echo "Update process starting..."
   cd ${installPath}/et
@@ -137,7 +149,7 @@ function updateServer () {
   runUpdate "${installPath}"
   setFilePermissions "${installPath}"
   restartFTP
-  downloadServerConfigs "${installPath}" "${authToken}" "${repopath}" "${mapscriptrepo}" "${servercfg}"
+  downloadServerConfigs "${installPath}" "${authToken}" "${repopath}" "${mapscriptrepo}" "${servercfg}" "${legacy1_lua}" "${legacy3_lua}" "${legacy3_snaps_lua}" "${legacy5_lua}" "${legacy6_lua}" "${practice_lua}"
   restartETLServer "${systemservice}"
   echo "Update Complete..."
 }
@@ -157,21 +169,27 @@ function main () {
   local laddermode=${11}
   local ladderpass=${12}
   local command=${13}
+  local legacy1_lua=${14}
+  local legacy3_lua=${15}
+  local legacy3_snaps_lua=${16}
+  local legacy5_lua=${17}
+  local legacy6_lua=${18}
+  local practice_lua=${19}
 
   if [[ "${command}" == "addmap" ]]; then
     echo "Adding map to server..."
     addMap "${installPath}" "${maplink}" "${mapname}" "${fileext}"
   elif [[ "${command}" == "updateconfigs" ]]; then
     echo "Starting server configuration update..."
-    downloadServerConfigs "${installPath}" "${authToken}" "${repopath}" "${mapscriptrepo}" "${servercfg}"
+    downloadServerConfigs "${installPath}" "${authToken}" "${repopath}" "${mapscriptrepo}" "${servercfg}" "${legacy1_lua}" "${legacy3_lua}" "${legacy3_snaps_lua}" "${legacy5_lua}" "${legacy6_lua}" "${practice_lua}"
   elif [[ "${command}" == "laddermode" ]]; then
     echo "Switching server to ladder mode..."
     ladderMode "${installPath}" "${laddermode}" "${ladderpass}" "${authToken}" "${repopath}" "${servercfg}" "${systemservice}"
   else
     echo "Starting Server Update Process..."
-    updateServer "${downloadLink}" "${authToken}" "${repopath}" "${mapscriptrepo}" "${servercfg}" "${installPath}" "${systemservice}"
+    updateServer "${downloadLink}" "${authToken}" "${repopath}" "${mapscriptrepo}" "${servercfg}" "${installPath}" "${systemservice}" "${legacy1_lua}" "${legacy3_lua}" "${legacy3_snaps_lua}" "${legacy5_lua}" "${legacy6_lua}" "${practice_lua}"
   fi
 
 }
 #current_dir=$(getCurrentDir)
-main "${1}" "${2}" "${3}" "${4}" "${5}" "${6}" "${7}" "${8}" "${9}" "${10}" "${11}" "${12}" "${13}"
+main "${1}" "${2}" "${3}" "${4}" "${5}" "${6}" "${7}" "${8}" "${9}" "${10}" "${11}" "${12}" "${13}" "${14}" "${15}" "${16}" "${17}" "${18}" "${19}" 
