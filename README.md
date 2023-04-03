@@ -10,7 +10,7 @@ Note that this install script assumes a bare metal Linux server running Ubuntu 2
 
 # Directions
 
-1.  Download installETLScrimServer.sh  `sudo wget http://moestavern.site.nfoservers.com/downloads/server/installETLScrimServer.sh`
+1.  Download installETLScrimServer.sh  `sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/installETLScrimServer.sh`
 2.  Set install script permissions  `sudo chmod +x installETLScrimServer.sh`
 3.  Run installETLScrimServer.sh  `sudo ./installETLScrimServer.sh`
 
