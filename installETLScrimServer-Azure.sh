@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author:  MaxPower - notoriusmax@gmail.com
-# GitHub:  https://github.com/randharris/MoesTavern-GameServers/blob/main/server-install/installETServer.sh
+# GitHub:  https://github.com/csmaxpower/MoesTavern-ETServerInstalls/blob/main/installETLScrimServer-Azure.sh
 
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
