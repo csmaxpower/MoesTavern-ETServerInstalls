@@ -1,5 +1,5 @@
 # MoesTavern-ETServerInstalls
-Files for installing and configuring ET and ETL game servers
+### Files for installing and configuring ET and ETL game servers
 
 These scripts download, install, and configures all necessary files to run an ETLegacy server (tested up to `v2.81.1-54`) with competition settings and maps. It will also configure FTP access for on-going management of the server.
 
@@ -15,7 +15,7 @@ Note that this means the install script assumes a bare metal Linux server runnin
 -  Run installETLScrimServer.sh  `sudo ./installETLScrimServer.sh`
 
 The necessary setup scripts will then be downloaded and executed and then there will be user prompts for server customization of the following cvars:
-`sv_hostname`, `g_password`, `sv_maxclients`, `sv_privateclients`, `sv_privatepassword`, `rconpassword`, `refereepassword`, `sv_wwwBaseURL.
+`sv_hostname`, `g_password`, `sv_maxclients`, `sv_privateclients`, `sv_privatepassword`, `rconpassword`, `refereepassword`, `sv_wwwBaseURL`.
 
 There will then be user prompts for setting an username and password for FTP access of the server.  This will configure the vsftpd service and also write a `DENY` line in the SSH access file for the new user that was just created to keep things nice and secure.
 
