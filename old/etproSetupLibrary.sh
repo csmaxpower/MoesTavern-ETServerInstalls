@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author:  MaxPower - notoriusmax@gmail.com
-# GitHub:  https://github.com/randharris/MoesTavern-GameServers/blob/main/server-install/etproSetupLibrary.sh
+# GitHub:  https://github.com/csmaxpower/MoesTavern-GameServers/blob/main/server-install/etproSetupLibrary.sh
 
 # Update the servers
 function updateServer() {

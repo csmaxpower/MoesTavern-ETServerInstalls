@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author:  MaxPower - notoriusmax@gmail.com
-# GitHub:  https://github.com/randharris/MoesTavern-ETServerInstalls/blob/main/etLegacySetupLibrary.sh
+# GitHub:  https://github.com/csmaxpower/MoesTavern-ETServerInstalls/blob/main/etLegacySetupLibrary.sh
 
 # Update the server (assumes Ubuntu 20.xx & >)
 function updateServer() {

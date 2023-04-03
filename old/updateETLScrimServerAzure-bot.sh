@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author:  MaxPower - notoriusmax@gmail.com
-# GitHub:  https://github.com/randharris/MoesTavern-GameServers/blob/main/server-install/updateETLScrimServer.sh
+# GitHub:  https://github.com/csmaxpower/MoesTavern-GameServers/blob/main/server-install/updateETLScrimServer.sh
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
     if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
@@ -53,7 +53,7 @@ function downloadServerConfigs() {
   rm -rf Legacy-Competition-League-Configs-main/
   cd ..
   cd etmain/
-  curl -v -o etl_server.cfg -H "Authorization: token $token" https://raw.githubusercontent.com/randharris/MoesTavern-GameServers/main/moes-legacy-"${servername}"/etmain/etl_server.cfg
+  curl -v -o etl_server.cfg -H "Authorization: token $token" https://raw.githubusercontent.com/csmaxpower/MoesTavern-GameServers/main/moes-legacy-"${servername}"/etmain/etl_server.cfg
   cd ..
 }
 

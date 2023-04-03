@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author:  MaxPower - notoriusmax@gmail.com
-# GitHub:  https://github.com/randharris/MoesTavern-ETServerInstalls/blob/main/installETLServer.sh
+# GitHub:  https://github.com/csmaxpower/MoesTavern-ETServerInstalls/blob/main/installETLServer.sh
 
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"

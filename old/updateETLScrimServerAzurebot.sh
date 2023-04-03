@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author:  MaxPower - notoriusmax@gmail.com
-# GitHub:  https://github.com/randharris/MoesTavern-GameServers/blob/main/server-install/updateETLScrimServerAzurebot.sh
+# GitHub:  https://github.com/csmaxpower/MoesTavern-GameServers/blob/main/server-install/updateETLScrimServerAzurebot.sh
 
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
@@ -54,7 +54,7 @@ function downloadServerConfigs() {
   sudo rm -rf Legacy-Competition-League-Configs-main/
   cd ..
   cd etmain/
-  sudo curl -v -o etl_server.cfg -H "Authorization: token $token" https://raw.githubusercontent.com/randharris/MoesTavern-GameServers/main/moes-legacy-"${servername}"/etmain/etl_server.cfg
+  sudo curl -v -o etl_server.cfg -H "Authorization: token $token" https://raw.githubusercontent.com/csmaxpower/MoesTavern-GameServers/main/moes-legacy-"${servername}"/etmain/etl_server.cfg
   cd ..
 }
 
