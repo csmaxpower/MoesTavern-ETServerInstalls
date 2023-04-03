@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author:  MaxPower - notoriusmax@gmail.com
-# GitHub:  https://github.com/csmaxpower/MoesTavern-ETServerInstalls/blob/main/installETLScrimServer-Azure.sh
+# GitHub:  https://github.com/csmaxpower/MoesTavern-ETServerInstalls/blob/main/installETLScrimServer-moes.sh
 
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
@@ -22,7 +22,7 @@ function setFilePermissions() {
 
 function runSetupScript() {
     # shellcheck source=./setupLibrary.sh
-    source "${current_dir}/etLegacyScrimServerSetup-Azure.sh"
+    source "${current_dir}/etLegacyScrimServerSetup-moes.sh"
 }
 
 function main () {
