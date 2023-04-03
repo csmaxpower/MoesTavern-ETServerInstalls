@@ -1,0 +1,6 @@
+[Unit]
+Description=Restarts Enemy Territory Legacy server service
+
+[Service]
+ExecStart=/bin/systemctl restart etlserver.service
+

@@ -1,0 +1,10 @@
+[Unit]
+Description=This timer restarts the Enemy Territory Legacy server service etlserver.service every day at 5am
+Requires=etlrestart.service
+
+[Timer]
+Unit=etlrestart.service
+OnCalendar=*-*-* 5:00:00
+
+[Install]
+WantedBy=timers.target
