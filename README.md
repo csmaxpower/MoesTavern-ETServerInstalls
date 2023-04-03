@@ -5,19 +5,19 @@ These scripts download, install, and configures all necessary files to run an ET
 
 The scripts, system services, configs, and downloads links are baselined to Moe's Tavern's hosts for everything except the game assets installation and key generation.
 
-Note that this install script assumes a bare metal Linux server running Ubuntu 20.xx and above.  The OS and packages will be updated before the server installation begins.
+Note that this means the install script assumes a bare metal Linux server running Ubuntu 20.xx and above.  The OS and packages will be updated before the server installation begins.
 
 
 # Directions
 
-1.  Download installETLScrimServer.sh  `sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/installETLScrimServer.sh`
-2.  Set install script permissions  `sudo chmod +x installETLScrimServer.sh`
-3.  Run installETLScrimServer.sh  `sudo ./installETLScrimServer.sh`
+-  Download installETLScrimServer.sh  `sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/installETLScrimServer.sh`
+-  Set install script permissions  `sudo chmod +x installETLScrimServer.sh`
+-  Run installETLScrimServer.sh  `sudo ./installETLScrimServer.sh`
 
-The necessary setup scripts will then be downloaded and executed.  There will be user prompts for server customization of the following cvars:
-servername, g_password, sv_maxclients, sv_privateclients, sv_privatepassword, rconpassword, refereepassword, sv_wwwBaseURL
+The necessary setup scripts will then be downloaded and executed and then there will be user prompts for server customization of the following cvars:
+`sv_hostname`, `g_password`, `sv_maxclients`, `sv_privateclients`, `sv_privatepassword`, `rconpassword`, `refereepassword`, `sv_wwwBaseURL.
 
-There will then be user prompts for setting an username and password for FTP access of the server.  This will configure the vsftpd service and also write a DENY line in the SSH access file for the new user that was just created to keep things nice and secure.
+There will then be user prompts for setting an username and password for FTP access of the server.  This will configure the vsftpd service and also write a `DENY` line in the SSH access file for the new user that was just created to keep things nice and secure.
 
 Finally, the script will write and configure a system level service for running the ETL server, a system restart service and system timer to manage daily restarts. Example system service usage:  `sudo systemctl start|stop|status|restart etlserver.service`
 
