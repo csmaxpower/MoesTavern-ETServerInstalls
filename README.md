@@ -3,12 +3,11 @@
 
 These scripts download, install, and configures all necessary files to run an ETLegacy server (tested up to `v2.81.1-54`) with competition settings and maps. It will also configure FTP access for on-going management of the server.
 
-The scripts, system services, configs, and downloads links are baselined to Moe's Tavern's hosts for everything except the game assets installation and key generation.
-
-Note that this means the install script assumes a bare metal Linux server running Ubuntu 20.xx and above.  The OS and packages will be updated before the server installation begins.
+Note that this means the install script assumes a freshly installed Linux server running *Ubuntu 20.xx* and above.  The OS and packages will be updated before the server installation begins.
 
 
 # Directions
+### Installs Enemy Territory Legacy Server with competition (stopwatch) settings
 
 -  Download *installETLScrimServer.sh*  `sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/installETLScrimServer.sh`
 -  Set install script permissions  `sudo chmod +x installETLScrimServer.sh`
