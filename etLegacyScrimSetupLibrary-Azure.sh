@@ -26,6 +26,13 @@ function installET() {
     local sv_wwwBaseURL=${8}
     local downloadLink=${9}
     local current_dir=${10}
+    local g_maxclients=${11}
+    local legacy1_lua="luascripts/game-stats-web.lua"
+    local legacy3_lua="luascripts/game-stats-web.lua"
+    local legacy3_snaps_lua="luascripts/game-stats-web.lua"
+    local legacy5_lua="luascripts/game-stats-web.lua"
+    local legacy6_lua="luascripts/game-stats-web.lua"
+    local practice_lua="luascripts/game-stats-web.lua"
 
     sudo mkdir -p ${current_dir}/et/
     sudo mkdir -p ${current_dir}/tmp/etsetup
@@ -43,20 +50,27 @@ function installET() {
     unzip main.zip
     sudo mv Legacy-Competition-League-Configs-main/configs/* ${current_dir}/et/legacy/configs/
     sudo mv Legacy-Competition-League-Configs-main/mapscripts/* ${current_dir}/et/legacy/mapscripts/
+    sudo mv Legacy-Competition-League-Configs-main/etl_server_comp.cfg ${current_dir}/et/etmain/etl_server.cfg
     sudo rm -rf main.zip
     sudo rm -rf Legacy-Competition-League-Configs-main/
-    cd ..
-    cd etmain/
-    sudo wget http://moestavern.site.nfoservers.com/downloads/server/config/etlscrimrotation.cfg
-    sudo wget http://moestavern.site.nfoservers.com/downloads/server/config/etl_server.cfg -O etl_server.cfg
-    sudo sed -i 's/set sv_hostname ""/set sv_hostname '"\"${servername}\""'/' etl_server.cfg
-    sudo sed -i 's/set g_password ""/set g_password '"\"${g_password}\""'/' etl_server.cfg
-    sudo sed -i 's/set sv_privateclients ""/set sv_privateclients '"\"${sv_privateclients}\""'/' etl_server.cfg
-    sudo sed -i 's/set sv_privatepassword ""/set sv_privatepassword '"\"${sv_privatepassword}\""'/' etl_server.cfg
-    sudo sed -i 's/set rconpassword ""/set rconpassword '"\"${rconpassword}\""'/' etl_server.cfg
-    sudo sed -i 's/set refereepassword ""/set refereepassword '"\"${refereepassword}\""'/' etl_server.cfg
-    sudo sed -i 's/set ShoutcastPassword ""/set ShoutcastPassword '"\"${ShoutcastPassword}\""'/' etl_server.cfg
-    sudo sed -i 's#set sv_wwwBaseURL ""#set sv_wwwBaseURL '"\"${sv_wwwBaseURL}\""'#' etl_server.cfg
+    cd ${current_dir}/et/legacy/configs/
+    sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy1_lua}\"'#' legacy1.config
+    sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy3_lua}\"'#' legacy3.config
+    sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy3_snaps_lua}\"'#' legacy3-snaps.config
+    sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy5_lua}\"'#' legacy5.config
+    sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy6_lua}\"'#' legacy6.config
+    sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${practice_lua}\"'#' practice.config
+    cd ${current_dir}/et/etmain/    
+    sudo sed -i 's#set sv_hostname  			     ""#set sv_hostname '\"${g_servername}\"'#' etl_server.cfg
+    sudo sed -i 's#set g_password				    ""#set g_password '\"${g_password}\"'#' etl_server.cfg
+    sudo sed -i 's#set sv_maxclients 			  ""#set g_maxclients '\"${g_maxclients}\"'#' etl_server.cfg
+    sudo sed -i 's#set sv_privateclients   	"0"#set sv_privateclients '\"${sv_privateclients}\"'#' etl_server.cfg
+    sudo sed -i 's#set sv_privatepassword  	""#set sv_privatepassword '\"${sv_privatepassword}\"'#' etl_server.cfg
+    sudo sed -i 's#set rconpassword			    ""#set rconpassword '\"${rconpassword}\"'#' etl_server.cfg
+    sudo sed -i 's#set refereePassword 		  ""#set refereepassword '\"${refereepassword}\"'#' etl_server.cfg
+    sudo sed -i 's#set ShoutcastPassword		  ""#set ShoutcastPassword '\"${ShoutcastPassword}\"'#' etl_server.cfg
+    sudo sed -i 's#set sv_wwwBaseURL 			   ""#set sv_wwwBaseURL '\"${sv_wwwBaseURL}\"'#' etl_server.cfg
+    sudo sed -i 's#set sv_hidden "1"#set sv_hidden '\"0\"'#' etl_server.cfg
     cd ..
 }
 
@@ -119,14 +133,31 @@ function configureStartScript() {
 function configureETServices() {
     local current_dir=${1}
 
-    cd ${current_dir}/et/
+    # old logic for service file download and creation
+    #cd ${current_dir}/et/
     # check current directory to download correct server service configuration
-    if [["${current_dir}" == *"moesroot"*]]; then
-      sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlserverazure.service
-      sudo mv etlserverazure.service /etc/systemd/system/etlserver.service
-    fi
-      sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlservergeneral.service
-      sudo mv etlservergeneral.service /etc/systemd/system/etlserver.service
+    #if [["${current_dir}" == *"moesroot"*]]; then
+      #sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlserverazure.service
+      #sudo mv etlserverazure.service /etc/systemd/system/etlserver.service
+    #fi
+      #sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlservergeneral.service
+      #sudo mv etlservergeneral.service /etc/systemd/system/etlserver.service
+    
+
+    # create service file based on current install directory
+    echo "Creating service file"
+    sudo cat > /etc/systemd/system/etlserver.service << EOF
+[Unit]
+Description=Wolfenstein Enemy Territory Server
+After=network.target
+
+[Service]
+ExecStart=$current_dir/et/etl_start.sh start
+Restart=always
+
+[Install]
+WantedBy=network-up.target
+EOF
 
     sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlrestart.service
     sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlmonitor.timer
