@@ -10,9 +10,9 @@ Note that this install script assumes a bare metal Linux server running Ubuntu 2
 
 # Directions
 
-1.  Run installETLScrimServer.sh  (wget http://moestavern.site.nfoservers.com/downloads/server/installETLScrimServer.sh)
-2.  chmod +x installETLScrimServer.sh
-3.  ./installETLScrimServer.sh
+1.  Download installETLScrimServer.sh  `sudo wget http://moestavern.site.nfoservers.com/downloads/server/installETLScrimServer.sh`
+2.  Set install script permissions  `sudo chmod +x installETLScrimServer.sh`
+3.  Run installETLScrimServer.sh  `sudo ./installETLScrimServer.sh`
 
 The necessary setup scripts will then be downloaded and executed.  There will be user prompts for server customization of the following cvars:
 servername, g_password, sv_maxclients, sv_privateclients, sv_privatepassword, rconpassword, refereepassword, sv_wwwBaseURL
