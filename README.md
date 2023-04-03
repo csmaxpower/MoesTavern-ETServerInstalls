@@ -20,3 +20,5 @@ servername, g_password, sv_maxclients, sv_privateclients, sv_privatepassword, rc
 There will then be user prompts for setting an username and password for FTP access of the server.  This will configure the vsftpd service and also write a DENY line in the SSH access file for the new user that was just created to keep things nice and secure.
 
 Finally, the script will write and configure a system level service for running the ETL server, a system restart service and system timer to manage daily restarts. Example system service usage:  `sudo systemctl start|stop|status|restart etlserver.service`
+
+[![Watch the video](https://i9.ytimg.com/vi/85Rn-jtDNPo/mq2.jpg?sqp=COjbrKEG-oaymwEmCMACELQB8quKqQMa8AEB-AHUBoAC4AOKAgwIABABGGUgZShlMA8=&rs=AOn4CLCEgHb02Vtdwe3qGhLPzmd3laipQA)](https://youtu.be/85Rn-jtDNPo)
