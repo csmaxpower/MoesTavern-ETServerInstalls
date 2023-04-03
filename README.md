@@ -7,7 +7,7 @@ Note that this means the install script assumes a freshly installed Linux server
 
 
 # Directions
-### Installs Enemy Territory Legacy Server with competition (stopwatch) settings
+### Installs Enemy Territory Legacy Server with competition (stopwatch) settings:
 
 -  Download *installETLScrimServer.sh*  `sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/installETLScrimServer.sh`
 -  Set install script permissions  `sudo chmod +x installETLScrimServer.sh`
