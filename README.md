@@ -21,6 +21,6 @@ There will then be user prompts for setting an username and password for FTP acc
 
 Finally, the script will write and configure a system level service for running the ETL server, a system restart service and system timer to manage daily restarts. Example system service usage:  `sudo systemctl start|stop|status|restart etlserver.service`
 
-## Watch the video tutorial below:
+### Watch the video tutorial below:
 
 [![Watch the video](https://moestavern.site.nfoservers.com/downloads/images/moes/preview.png)](https://youtu.be/85Rn-jtDNPo)
