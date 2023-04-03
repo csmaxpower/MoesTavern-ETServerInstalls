@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author:  MaxPower - notoriusmax@gmail.com
-# GitHub:  https://github.com/csmaxpower/MoesTavern-ETServerInstalls/blob/main/etLegacyScrimServerSetup-Azure.sh
+# GitHub:  https://github.com/randharris/MoesTavern-GameServers/blob/main/server-install/etLegacyServerSetup.sh
 
 set -e
 
@@ -12,7 +12,7 @@ function getCurrentDir() {
 
 function includeDependencies() {
     # shellcheck source=./setupLibrary.sh
-    source "${current_dir}/etLegacyScrimSetupLibrary-Azure.sh"
+    source "${current_dir}/etLegacyScrimSetupLibrary.sh"
 }
 
 current_dir=$(getCurrentDir)
@@ -25,8 +25,6 @@ function main() {
     read -rp "Enter the Server Name with color characters:" servername
     # capture desired password for server
     read -rp "Set the game password:" g_password
-    # capture desired number of maximum clients
-    read -rp "Enter the number of maximum client slots for the server:" g_maxclients
     # capture desired number of private clients
     read -rp "Enter the number of private slots to be reserved:" sv_privateclients
     # capture desired private slot password
@@ -41,8 +39,6 @@ function main() {
     read -rp "Set the URL for file downloads and redirect:" sv_wwwBaseURL
     # capture desired installer download URL
     read -rp "Set the URL for update download:" downloadLink
-    # capture desired install directory
-    read -rp "Set the installation directory (e.g. /home/username):" installDir
     # capture desired username
     read -rp "Enter a username for FTP access:" username
     echo 'Setting up user account for FTP access'
@@ -53,16 +49,16 @@ function main() {
     echo 'Installing needed software'
     installUnzip
     echo 'Installing Enemy Territory Legacy Server'
-    installET "${servername}" "${g_password}" "${sv_privateclients}" "${sv_privatepassword}" "${rconpassword}" "${refereepassword}" "${ShoutcastPassword}" "${sv_wwwBaseURL}" "${downloadLink}" "${installDir}" "${g_maxclients}"
+    installET "${servername}" "${g_password}" "${sv_privateclients}" "${sv_privatepassword}" "${rconpassword}" "${refereepassword}" "${ShoutcastPassword}" "${sv_wwwBaseURL}" "${downloadLink}"
     echo 'Downloading maps'
     installMaps
     echo 'Setting up start script for server'
-    configureStartScript "${installDir}"
+    configureStartScript
     echo 'Setting up system service for Enemy Territory Legacy'
-    configureETServices "${installDir}"
+    configureETServices
     # install VSFTP
     echo 'Installing and configuring VSFTPD'
-    configureVSFTP "${installDir}"
+    configureVSFTP
     # configure firewall rules and enable firewall for access
     echo 'Configuring firewall rules for Enemy Territory and FTP access'
     configureUFW
