@@ -125,7 +125,7 @@ function configureStartScript() {
     local current_dir=${1}
 
     cd ${current_dir}/et/
-    sudo wget https://github.com/csmaxpower/MoesTavern-ETServerInstalls/blob/main/etl_start.sh
+    sudo wget https://moestavern.site.nfoservers.com/downloads/server/etl_start.sh
     sudo chmod +x ${current_dir}/et/etl_start.sh
 }
 
