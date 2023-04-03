@@ -26,7 +26,7 @@ function installET() {
     local sv_wwwBaseURL=${8}
     local downloadLink=${9}
     local current_dir=${10}
-    local g_maxclients=${11}
+    local sv_maxclients=${11}
     local legacy1_lua="luascripts/game-stats-web.lua"
     local legacy3_lua="luascripts/game-stats-web.lua"
     local legacy3_snaps_lua="luascripts/game-stats-web.lua"
@@ -63,7 +63,7 @@ function installET() {
     cd ${current_dir}/et/etmain/    
     sudo sed -i 's#set sv_hostname  			     ""#set sv_hostname '\"${g_servername}\"'#' etl_server.cfg
     sudo sed -i 's#set g_password				    ""#set g_password '\"${g_password}\"'#' etl_server.cfg
-    sudo sed -i 's#set sv_maxclients 			  ""#set g_maxclients '\"${g_maxclients}\"'#' etl_server.cfg
+    sudo sed -i 's#set sv_maxclients 			  ""#set sv_maxclients '\"${sv_maxclients}\"'#' etl_server.cfg
     sudo sed -i 's#set sv_privateclients   	"0"#set sv_privateclients '\"${sv_privateclients}\"'#' etl_server.cfg
     sudo sed -i 's#set sv_privatepassword  	""#set sv_privatepassword '\"${sv_privatepassword}\"'#' etl_server.cfg
     sudo sed -i 's#set rconpassword			    ""#set rconpassword '\"${rconpassword}\"'#' etl_server.cfg

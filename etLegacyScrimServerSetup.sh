@@ -26,7 +26,7 @@ function main() {
     # capture desired password for server
     read -rp "Set the game password:" g_password
     # capture desired number of maximum clients
-    read -rp "Enter the number of maximum client slots for the server:" g_maxclients
+    read -rp "Enter the number of maximum client slots for the server:" sv_maxclients
     # capture desired number of private clients
     read -rp "Enter the number of private slots to be reserved:" sv_privateclients
     # capture desired private slot password
@@ -53,7 +53,7 @@ function main() {
     echo 'Installing needed software'
     installUnzip
     echo 'Installing Enemy Territory Legacy Server'
-    installET "${servername}" "${g_password}" "${sv_privateclients}" "${sv_privatepassword}" "${rconpassword}" "${refereepassword}" "${ShoutcastPassword}" "${sv_wwwBaseURL}" "${downloadLink}" "${installDir}" "${g_maxclients}"
+    installET "${servername}" "${g_password}" "${sv_privateclients}" "${sv_privatepassword}" "${rconpassword}" "${refereepassword}" "${ShoutcastPassword}" "${sv_wwwBaseURL}" "${downloadLink}" "${installDir}" "${sv_maxclients}"
     echo 'Downloading maps'
     installMaps
     echo 'Setting up start script for server'
