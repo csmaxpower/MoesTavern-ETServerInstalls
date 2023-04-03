@@ -1,16 +1,16 @@
 # MoesTavern-ETServerInstalls
 Files for installing and configuring ET and ETL game servers
 
-These scripts download, install, and configures all necessary files to run an ETLegacy server (version 2.78) with competition settings and maps. It will also configure FTP access for on-going management of the server.
+These scripts download, install, and configures all necessary files to run an ETLegacy server (tested up to `v2.81.1-54`) with competition settings and maps. It will also configure FTP access for on-going management of the server.
 
 The scripts, system services, configs, and downloads links are baselined to Moe's Tavern's hosts for everything except the game assets installation and key generation.
 
-Note that this install script assumes a bare metal Linux server running Ubuntu 20.xx and >.  The system and packages will be updated before the server installation begins.
+Note that this install script assumes a bare metal Linux server running Ubuntu 20.xx and above.  The OS and packages will be updated before the server installation begins.
 
 
 # Directions
 
-1.  Run installETL(Scrim/Pub)Server.sh  (wget http://moestavern.site.nfoservers.com/downloads/server/installETLScrimServer.sh)
+1.  Run installETLScrimServer.sh  (wget http://moestavern.site.nfoservers.com/downloads/server/installETLScrimServer.sh)
 2.  chmod +x installETLScrimServer.sh
 3.  ./installETLScrimServer.sh
 
