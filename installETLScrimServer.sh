@@ -9,8 +9,8 @@ function getCurrentDir() {
 }
 
 function downloadSetupFiles() {
-    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etLegacyScrimServerSetup.sh
-    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etLegacyScrimSetupLibrary.sh
+    sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/etLegacyScrimServerSetup.sh
+    sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/etLegacyScrimSetupLibrary.sh
 }
 
 function setFilePermissions() {

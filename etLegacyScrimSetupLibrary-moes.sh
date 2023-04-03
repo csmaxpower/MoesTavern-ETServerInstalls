@@ -125,7 +125,7 @@ function configureStartScript() {
     local current_dir=${1}
 
     cd ${current_dir}/et/
-    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etl_start.sh
+    sudo wget https://github.com/csmaxpower/MoesTavern-ETServerInstalls/blob/main/etl_start.sh
     sudo chmod +x ${current_dir}/et/etl_start.sh
 }
 
@@ -133,19 +133,8 @@ function configureStartScript() {
 function configureETServices() {
     local current_dir=${1}
 
-    # old logic for service file download and creation
-    #cd ${current_dir}/et/
-    # check current directory to download correct server service configuration
-    #if [["${current_dir}" == *"moesroot"*]]; then
-      #sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlserverazure.service
-      #sudo mv etlserverazure.service /etc/systemd/system/etlserver.service
-    #fi
-      #sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlservergeneral.service
-      #sudo mv etlservergeneral.service /etc/systemd/system/etlserver.service
-    
-
     # create service file based on current install directory
-    echo "Creating service file"
+    echo "Creating server service file"
     sudo cat > /etc/systemd/system/etlserver.service << EOF
 [Unit]
 Description=Wolfenstein Enemy Territory Server
@@ -159,13 +148,37 @@ Restart=always
 WantedBy=network-up.target
 EOF
 
-    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlrestart.service
-    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etlmonitor.timer
-    sudo mv etlrestart.service /etc/systemd/system/etlrestart.service
-    sudo mv etlmonitor.timer /etc/systemd/system/etlmonitor.timer
+    # create restart service file based on current install directory
+    echo "Creating restart service file"
+    sudo cat > /etc/systemd/system/etlrestart.service << EOF
+[Unit]
+Description=Restarts Enemy Territory Legacy server service
+
+[Service]
+ExecStart=/bin/systemctl restart etlserver.service
+EOF
+
+    # create service file based on current install directory
+    echo "Creating server monitor timer file"
+    sudo cat > /etc/systemd/system/etlmonitor.timer << EOF
+[Unit]
+Description=This timer restarts the Enemy Territory Legacy server service etlserver.service every day at 5am
+Requires=etlrestart.service
+
+[Timer]
+Unit=etlrestart.service
+OnCalendar=*-*-* 5:00:00
+
+[Install]
+WantedBy=timers.target
+EOF
+
+    # reload systemctl daemon after service file creations
     sudo systemctl daemon-reload
+    # enable server service and timer to run at system startup
     sudo systemctl enable etlserver.service
     sudo systemctl enable etlmonitor.timer
+    # start server monitor timer
     sudo systemctl start etlmonitor.timer
 }
 

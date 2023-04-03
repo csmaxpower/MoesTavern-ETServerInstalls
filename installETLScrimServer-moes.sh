@@ -9,14 +9,14 @@ function getCurrentDir() {
 }
 
 function downloadSetupFiles() {
-    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etLegacyScrimServerSetup.sh
-    sudo wget http://moestavern.site.nfoservers.com/downloads/server/etLegacyScrimSetupLibrary.sh
-    sudo wget http://moestavern.site.nfoservers.com/downloads/server/update-server-bot.sh
+    sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/etLegacyScrimServerSetup-moes.sh
+    sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/etLegacyScrimSetupLibrary-moes.sh
+    sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/update-server-bot.sh
 }
 
 function setFilePermissions() {
-    sudo chmod +x etLegacyScrimServerSetup-Azure.sh
-    sudo chmod +x etLegacyScrimSetupLibrary-Azure.sh
+    sudo chmod +x etLegacyScrimServerSetup-moes.sh
+    sudo chmod +x etLegacyScrimSetupLibrary-moes.sh
     sudo chmod +x update-server-bot.sh
 }
 
