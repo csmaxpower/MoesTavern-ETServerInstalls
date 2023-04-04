@@ -22,11 +22,11 @@ function main() {
 
     echo 'Running Enemy Territory Server setup script...'
     # capture desired name of the server
-    read -rp "Enter the Server Name with color characters:" servername
+    read -rp "Enter the Server Name (can be with color):" sv_hostname
     # capture desired password for server
     read -rp "Set the game password:" g_password
     # capture desired number of maximum clients
-    read -rp "Enter the number of maximum client slots for the server:" sv_maxclients
+    read -rp "Enter the number of maximum client slots:" sv_maxclients
     # capture desired number of private clients
     read -rp "Enter the number of private slots to be reserved:" sv_privateclients
     # capture desired private slot password
@@ -40,7 +40,7 @@ function main() {
     # capture desired redirect and file download URL
     read -rp "Set the URL for file downloads and redirect:" sv_wwwBaseURL
     # capture desired installer download URL
-    read -rp "Set the URL for update download:" downloadLink
+    read -rp "Set the URL for current version installer download (.sh):" downloadLink
     # capture desired install directory
     read -rp "Set the installation directory (e.g. /home/username):" installDir
     # capture desired username
@@ -53,7 +53,7 @@ function main() {
     echo 'Installing needed software'
     installUnzip
     echo 'Installing Enemy Territory Legacy Server'
-    installET "${servername}" "${g_password}" "${sv_privateclients}" "${sv_privatepassword}" "${rconpassword}" "${refereepassword}" "${ShoutcastPassword}" "${sv_wwwBaseURL}" "${downloadLink}" "${installDir}" "${sv_maxclients}"
+    installET "${sv_hostname}" "${g_password}" "${sv_privateclients}" "${sv_privatepassword}" "${rconpassword}" "${refereepassword}" "${ShoutcastPassword}" "${sv_wwwBaseURL}" "${downloadLink}" "${installDir}" "${sv_maxclients}"
     echo 'Downloading maps'
     installMaps
     echo 'Setting up start script for server'

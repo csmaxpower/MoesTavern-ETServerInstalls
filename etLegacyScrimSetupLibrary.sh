@@ -16,7 +16,7 @@ function installUnzip() {
 # installation of ETL and server configs
 function installET() {
     # variable to store user input
-    local servername=${1}
+    local sv_hostname=${1}
     local g_password=${2}
     local sv_privateclients=${3}
     local sv_privatepassword=${4}
@@ -61,7 +61,7 @@ function installET() {
     sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy6_lua}\"'#' legacy6.config
     sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${practice_lua}\"'#' practice.config
     cd ${current_dir}/et/etmain/    
-    sudo sed -i 's#set sv_hostname  			     ""#set sv_hostname '\"${g_servername}\"'#' etl_server.cfg
+    sudo sed -i 's#set sv_hostname  			     ""#set sv_hostname '\"${sv_hostname}\"'#' etl_server.cfg
     sudo sed -i 's#set g_password				    ""#set g_password '\"${g_password}\"'#' etl_server.cfg
     sudo sed -i 's#set sv_maxclients 			  ""#set sv_maxclients '\"${sv_maxclients}\"'#' etl_server.cfg
     sudo sed -i 's#set sv_privateclients   	"0"#set sv_privateclients '\"${sv_privateclients}\"'#' etl_server.cfg
