@@ -23,9 +23,12 @@ Note that this means the install script assumes a freshly installed Linux server
 
 - You will need the http link to whichever `.sh` installer version for ETLegacy you are wanting to install when the script asks for the installation url.  (e.g. `https://www.etlegacy.com/workflow-files/dl/01dc5c31ca47758e13455d43ae43682fb3ade3dd/lnx64/etlegacy-v2.81.1-54-g01dc5c3-x86_64.sh`)
 
-There will then be user prompts for setting an username and password for FTP access of the server.  This will configure the vsftpd service and also write a `DENY` line in the SSH access file for the new user that was just created to keep things nice and secure.
+- There will then be user prompts for setting an `username` and `password` for **FTP** access of the server.  This will configure the `vsftpd` service and also write a `DENY` line in the SSH access file for the new user that was just created to keep things nice and secure.
 
-Finally, the script will write and configure a system level service for running the ETL server, a system restart service and system timer to manage daily restarts. Example system service usage:  `sudo systemctl start|stop|status|restart etlserver.service`
+- Finally, the script will write and configure a system level service for running the ETL server, a system restart service and system timer to manage daily restarts.  The default timer is set to restart the server service at `05:00am` (server local time). 
+
+### Example system service usage:  
+`sudo systemctl start|stop|status|restart etlserver.service`
 
 ### Watch the video tutorial below:
 
