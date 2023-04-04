@@ -31,6 +31,22 @@ Note that this means the install script assumes a freshly installed Linux server
 ### Example system service usage:  
 `sudo systemctl start|stop|status|restart etlserver.service`
 
+```bash
+etuser@moestavern-na-dev:~# sudo systemctl status etlserver.service
+● etlserver.service - Wolfenstein Enemy Territory Server
+     Loaded: loaded (/etc/systemd/system/etlserver.service; enabled; vendor preset: enabled)
+     Active: active (running) since Mon 2023-04-03 09:00:08 PDT; 9h ago
+   Main PID: 139900 (etl_start.sh)
+      Tasks: 2 (limit: 2266)
+     Memory: 99.3M
+     CGroup: /system.slice/etlserver.service
+             ├─139900 /bin/bash /home/etuser/et/etl_start.sh start
+             └─139908 /home/etuser/et etlded.x86_64 +set dedicated 2 +set vm_game 0
+             +set net_port 27960 +set sv_maxclients 32 +set fs_game legacy
+             +set fs_basepath /home/etuser/et
+             +set fs_homepath /home/etuser/et +exec etl_server.cfg
+```
+
 ### Watch the video tutorial below:
 
 [![Watch the video](https://moestavern.site.nfoservers.com/downloads/images/moes/preview.png)](https://youtu.be/85Rn-jtDNPo)
