@@ -47,6 +47,17 @@ etuser@moestavern-na-dev:~# sudo systemctl status etlserver.service
              +set fs_homepath /home/etuser/et +exec etl_server.cfg
 ```
 
+`sudo systemctl start|stop|status|restart etlmonitor.timer`
+
+```bash
+etuser@moestavern-na-dev:~# sudo systemctl status etlmonitor.timer
+● etlmonitor.timer - This timer restarts the Enemy Territory Legacy server service etlserver.service every day at 5am
+     Loaded: loaded (/etc/systemd/system/etlmonitor.timer; enabled; vendor preset: enabled)
+     Active: active (waiting) since Thu 2023-03-16 06:15:51 PDT; 2 weeks 4 days ago
+    Trigger: Tue 2023-04-04 09:00:00 PDT; 14h left
+   Triggers: ● etlrestart.service
+```
+
 ### Watch the video tutorial below:
 
 [![Watch the video](https://moestavern.site.nfoservers.com/downloads/images/moes/preview.png)](https://youtu.be/85Rn-jtDNPo)
