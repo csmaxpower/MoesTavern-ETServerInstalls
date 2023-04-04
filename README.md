@@ -13,7 +13,11 @@ Note that this means the install script assumes a freshly installed Linux server
 -  Set install script permissions  `sudo chmod +x installETLScrimServer.sh`
 -  Run *installETLScrimServer.sh*  `sudo ./installETLScrimServer.sh`
 
-- The necessary setup scripts will then be downloaded and executed and then there will be user prompts for server customization of the following cvars: `sv_hostname`, `g_password`, `sv_maxclients`, `sv_privateclients`, `sv_privatepassword`, `rconpassword`, `refereepassword`, `sv_wwwBaseURL`.
+- The necessary setup scripts will then be downloaded and executed and then there will be user prompts for server customization of the following cvars: 
+    - 'sv_hostname', 'g_password' 
+    - 'sv_maxclients', 'sv_privateclients' 
+    - 'sv_privatepassword', 'rconpassword', 'refereepassword', 'ShoutcastPassword' 
+    - 'sv_wwwBaseURL'
 
 - *You will need a http link to whichever `.sh` installer version for ETLegacy you are wanting to install when the script asks for the update url.*  (e.g. `https://www.etlegacy.com/workflow-files/dl/01dc5c31ca47758e13455d43ae43682fb3ade3dd/lnx64/etlegacy-v2.81.1-54-g01dc5c3-x86_64.sh`)
 
