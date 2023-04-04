@@ -5,9 +5,11 @@ These scripts download, install, and configures all necessary files to run an ET
 
 Note that this means the install script assumes a freshly installed Linux server running *Ubuntu 20.xx* and above.  The OS and packages will be updated before the server installation begins.
 
+*The current project only maintains and updates for Wolfenstein: Enemy Territory Legacy servers for which directions are below.  Other automated installation scripts found in `/old` are specific to certain hosts and other game mods and are not actively maintained.*
+
 
 # Directions
-### Installs Enemy Territory Legacy Server with competition (stopwatch) settings:
+### Installs Enemy Territory Legacy Server with competition (*stopwatch*) settings:
 
 -  Download *installETLScrimServer.sh*  `sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/installETLScrimServer.sh`
 -  Set install script permissions  `sudo chmod +x installETLScrimServer.sh`
