@@ -1,7 +1,7 @@
 # MoesTavern-ETServerInstalls
 ### Files for installing and configuring Wolfenstein:Enemy Territory game servers on Linux
 
-These scripts download, install, and configures all necessary files to run an ETLegacy server (tested up to `v2.81.1-54`) with competition settings and maps. It will also configure FTP access for on-going management of the server.
+These scripts download, install, and configures all necessary files to run an ETLegacy server (tested up to `v2.81.1-54`) with competition settings, configs, and maps. It will also configure FTP access for on-going management of the server.  This script will produce a match ready server ready for connection.
 
 Note that this means the install script assumes a freshly installed Linux server running *Ubuntu 20.xx* and above.  The OS and packages will be updated before the server installation begins.
 
