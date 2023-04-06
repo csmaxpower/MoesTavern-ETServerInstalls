@@ -1,9 +1,9 @@
 # MoesTavern-ETServerInstalls
-### Files for installing and configuring Wolfenstein:Enemy Territory and ET: Legacy game servers on Linux
+### Files for installing and configuring Wolfenstein:Enemy Territory and ET: Legacy game servers on Linux (x86_64)
 
 These scripts download, install, and configure all necessary components to run an ETLegacy server (tested up to `v2.81.1-54`) with competition settings, configs, and maps. It will also configure FTP access for on-going management of the server.  This script will produce a match ready server ready for connection.
 
-Note that this install script assumes it is being run a freshly installed Linux server running *Ubuntu 20.xx* and above.  The OS and packages will be updated before the server installation begins.
+Note that this install script assumes it is being run a freshly installed Linux server running **Ubuntu 20.xx** and above.  The OS and packages will be updated before the server installation begins.
 
 *The current project only maintains updates for Wolfenstein: Enemy Territory Legacy servers for which the directions are below.  Other automated installation scripts found in `/old` are specific to certain hosts and other game mods and are not actively maintained.*
 
@@ -11,14 +11,14 @@ Note that this install script assumes it is being run a freshly installed Linux 
 # Directions
 ### Installs Enemy Territory Legacy Server with competition (*stopwatch*) settings:
 
--  Download *installETLScrimServer.sh*  `sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/installETLScrimServer.sh`
--  Set install script permissions  `sudo chmod +x installETLScrimServer.sh`
--  Run *installETLScrimServer.sh*  `sudo ./installETLScrimServer.sh`
+- [ ] Download *installETLScrimServer.sh*  `sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/installETLScrimServer.sh`
+- [ ] Set install script permissions  `sudo chmod +x installETLScrimServer.sh`
+- [ ] Run *installETLScrimServer.sh*  `sudo ./installETLScrimServer.sh`
 
 - The necessary setup scripts will then be downloaded and executed and then there will be user prompts for server customization of the following cvars: 
-    - `sv_hostname`, `g_password` 
+    - `sv_hostname`  
     - `sv_maxclients`, `sv_privateclients` 
-    - `sv_privatepassword`, `rconpassword`, `refereepassword`, `ShoutcastPassword` 
+    - `g_password`, `sv_privatepassword`, `rconpassword`, `refereepassword`, `ShoutcastPassword` 
     - `sv_wwwBaseURL`
 
 - You will need the http link to whichever `.sh` installer version for ETLegacy you are wanting to install when the script asks for the installation url.  
