@@ -11,9 +11,9 @@ Note that this install script assumes it is being run a freshly installed Linux 
 # Directions
 ### Installs Enemy Territory Legacy Server with competition (*stopwatch*) settings:
 
-- [ ] Download *installETLScrimServer.sh*  `sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/installETLScrimServer.sh`
-- [ ] Set install script permissions  `sudo chmod +x installETLScrimServer.sh`
-- [ ] Run *installETLScrimServer.sh*  `sudo ./installETLScrimServer.sh`
+- [ ] Download *installETLScrimServer.sh*:   `sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/installETLScrimServer.sh`
+- [ ] Set install script permissions:   `sudo chmod +x installETLScrimServer.sh`
+- [ ] Run *installETLScrimServer.sh*:   `sudo ./installETLScrimServer.sh`
 
 - The necessary setup scripts will then be downloaded and executed and then there will be user prompts for server customization of the following cvars: 
     - `sv_hostname`  
