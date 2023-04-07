@@ -105,13 +105,19 @@ function runInstall() {
     fi
 }
 
-function uninstallMenu() {
-    local installtype=${1}
-
+function uninstallInfo() {
     # capture desired UDP port of server to delete
     read -rp "Enter the root installation directory of your servers (e.g. /home/username):" install_dir
     # capture desired UDP port of server to delete
     read -rp "Enter the UDP Port # for server you wish to uninstall (e.g. 27960):" net_port
+    # send info to uninstall procedure
+    uninstallMenu "${install_dir}" "${net_port}"
+}
+
+function uninstallMenu() {
+    local install_dir=${1}
+    local net_port=${2}
+
     echo -e "\nYou have chosen to uninstall server found at $install_dir/$net_port/."
     read -p "Do you want to proceed? (y/n) " yn
 
@@ -120,7 +126,7 @@ function uninstallMenu() {
         [nN] ) echo Returning to main menu...;
             exit;;
         *) echo -e "Invalid option selected."; uninstallMenu;
-            exit 1;;
+            exit ;;
     esac
 
     echo -e "\nThe server found at $install_dir/$net_port/ and associated system services have been successfully uninstalled."
@@ -229,7 +235,7 @@ $(ColorBlue 'Please choose an option: ')"
         6) changeUserPassMenu ; main ;;
         7) changeRestartTime ; main ;;
         8) removeFTPUserMenu ; main ;;
-        9) uninstallMenu "del" ; main ;;
+        9) uninstallInfo ; main ;;
 	    0) exit 0 ;;
 	    *) echo -e $red"Invalid option selected."$clear; main;;
     esac
