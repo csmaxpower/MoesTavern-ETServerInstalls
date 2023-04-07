@@ -1,7 +1,7 @@
 # MoesTavern-ETServerInstalls
 ### Files for installing and configuring Wolfenstein:Enemy Territory and ET: Legacy game servers on Linux (x86_64)
 
-These scripts download, install, and configure all necessary components to run an ETLegacy server (tested up to `v2.81.1-54`).  From a menu, you can select either a **Competition** based server or a **Public** based server and the installer will download and configure the appropriate settings for each. It will also configure FTP access for on-going management of the server.  More than one server can be installed on the same host with this installer as well using a different `net_port` for each.  Each server instance is installed into a directory corresponding to the servers port number and systemctl services are created for each in the same manner.  (e.g. `/install_path/27960`,`/install_path/27970` & `etlserver-27960.service`, `etlserver-27970.service`)
+These scripts download, install, and configure all necessary components to run an ET: Legacy game server (*tested up to* `v2.81.1-54`).  From a menu, you can select either a **Competition** based server or a **Public** based server and the installer will download and configure the appropriate settings for each. It will also configure FTP access for on-going management of the server.  More than one server can be installed on the same host with this installer using a different `net_port` for each installation.  Each server instance is installed into a directory corresponding to the servers port number and systemctl services are created for each in the same manner.  (e.g. `/install_path/27960`,`/install_path/27970` & `etlserver-27960.service`, `etlserver-27970.service`)
 
 Note that this install script assumes it is being run a freshly installed Linux server running **Ubuntu 20.xx** and above.  The OS and packages will be updated before the server installation begins.
 
@@ -32,17 +32,18 @@ Note that this install script assumes it is being run a freshly installed Linux 
 - Finally, the script will write and configure a system level service for running the ETL server, a system restart service and system timer to manage daily restarts.  The default timer is set to restart the server service at `05:00am` (server local time). 
 
 ### Example system service usage:  
-`sudo systemctl start|stop|status|restart etlserver.service`
+`sudo systemctl start|stop|status|restart etlserver-27960.service`
+
 
 ```bash
-etuser@moestavern-na-dev:~# sudo systemctl status etlserver.service
-● etlserver.service - Wolfenstein Enemy Territory Server
-     Loaded: loaded (/etc/systemd/system/etlserver.service; enabled; vendor preset: enabled)
+etuser@moestavern-na-dev:~# sudo systemctl status etlserver-27960.service
+● etlserver-27960.service - Wolfenstein Enemy Territory Server
+     Loaded: loaded (/etc/systemd/system/etlserver-27960.service; enabled; vendor preset: enabled)
      Active: active (running) since Mon 2023-04-03 09:00:08 PDT; 9h ago
    Main PID: 139900 (etl_start.sh)
       Tasks: 2 (limit: 2266)
      Memory: 99.3M
-     CGroup: /system.slice/etlserver.service
+     CGroup: /system.slice/etlserver-27960.service
              ├─139900 /bin/bash /home/etuser/et/etl_start.sh start
              └─139908 /home/etuser/et etlded.x86_64 +set dedicated 2 +set vm_game 0
              +set net_port 27960 +set sv_maxclients 32 +set fs_game legacy
@@ -50,12 +51,12 @@ etuser@moestavern-na-dev:~# sudo systemctl status etlserver.service
              +set fs_homepath /home/etuser/et +exec etl_server.cfg
 ```
 
-`sudo systemctl start|stop|status|restart etlmonitor.timer`
+`sudo systemctl start|stop|status|restart etlmonitor-27960.timer`
 
 ```bash
-etuser@moestavern-na-dev:~# sudo systemctl status etlmonitor.timer
+etuser@moestavern-na-dev:~# sudo systemctl status etlmonitor-27960.timer
 ● etlmonitor.timer - This timer restarts the Enemy Territory Legacy server service etlserver.service every day at 5am
-     Loaded: loaded (/etc/systemd/system/etlmonitor.timer; enabled; vendor preset: enabled)
+     Loaded: loaded (/etc/systemd/system/etlmonitor-27960.timer; enabled; vendor preset: enabled)
      Active: active (waiting) since Thu 2023-03-16 06:15:51 PDT; 2 weeks 4 days ago
     Trigger: Tue 2023-04-04 09:00:00 PDT; 14h left
    Triggers: ● etlrestart.service
