@@ -16,7 +16,8 @@ Note that this install script assumes it is being run a freshly installed Linux 
 - [ ] Run *installETLServer.sh*:   `sudo ./installETLServer.sh`
 - [ ] Choose menu option to begin installation:
     
-![menu](https://moestavern.site.nfoservers.com/downloads/images/moes/etl-serverinstall-menu.png)
+![menu](https://moestavern.site.nfoservers.com/downloads/images/moes/etl-serverinstall-mainmenu.png)  
+![sub-menu](https://moestavern.site.nfoservers.com/downloads/images/moes/etl-serverinstall-submenu.png)
 
 - [ ] The necessary setup scripts will then be downloaded and executed and then there will be user prompts for server customization of the following cvars: 
     - `sv_hostname`, `net_port`
