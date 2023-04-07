@@ -118,15 +118,14 @@ function uninstallMenu() {
     local install_dir=${1}
     local net_port=${2}
 
-    echo -e "\nYou have chosen to uninstall server found at $install_dir/$net_port/."
+    echo -e "\nYou have chosen to uninstall server found at $install_dir/$net_port/"
     read -p "Do you want to proceed? (y/n) " yn
 
     case $yn in 
         [yY] ) removeETLServer $install_dir $net_port;;
         [nN] ) echo Returning to main menu...;
             exit;;
-        *) echo -e "Invalid option selected."; uninstallMenu;
-            exit ;;
+        *) echo -e "Invalid option selected."; uninstallMenu $install_dir $net_port;;
     esac
 
     echo -e "\nThe server found at $install_dir/$net_port/ and associated system services have been successfully uninstalled."
