@@ -2,7 +2,7 @@
 # Author:  MaxPower - notoriusmax@gmail.com
 # GitHub:  https://github.com/csmaxpower/MoesTavern-ETServerInstalls/blob/main/etLegacyScrimServerSetup.sh
 
-#set -e
+set -e
 
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
@@ -15,18 +15,13 @@ function includeDependencies() {
     source "${current_dir}/etLegacySetupLibrary.sh"
 }
 
-##
 # Color  Variables
-##
 red="\e[31m"
-green='\e[32m'
-blue='\e[34m'
-clear='\e[0m'
+green="\e[32m"
+blue="\e[34m"
+clear="\e[0m"
 
-##
 # Color Functions
-##
-
 ColorGreen(){
 	echo -ne $green$1$clear
 }
@@ -36,8 +31,6 @@ ColorBlue(){
 ColorRed(){
 	echo -ne $red$1$clear
 }
-
-
 
 
 current_dir=$(getCurrentDir)
@@ -126,7 +119,7 @@ function uninstallMenu() {
         [yY] ) removeETLServer $install_dir $net_port;;
         [nN] ) echo Returning to main menu...;
             exit;;
-        * ) echo $red"invalid response"$clear;
+        * ) echo $red"invalid response"$clear; uninstallMenu;
             exit 1;;
     esac
 
@@ -238,7 +231,7 @@ $(ColorBlue 'Please choose an option: ')"
         8) removeFTPUserMenu ; main ;;
         9) uninstallMenu "del" ; main ;;
 	    0) exit 0 ;;
-	    *) echo -e $red"That is not an option."$clear; WrongCommand;;
+	    *) echo -e $red"That is not an option."$clear; main;;
     esac
     
 }
