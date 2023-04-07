@@ -188,6 +188,11 @@ function configureStartScript() {
 function configureETServices() {
     local current_dir=${1}
     local net_port=${2}
+    local restart_time=${3}
+
+    if ![[ restart_time == ""]]; then
+        restart_time="5:00:00"
+    fi
 
     # create service file based on current install directory
     echo "Creating server service file"
@@ -223,7 +228,7 @@ Requires=etlrestart-$net_port.service
 
 [Timer]
 Unit=etlrestart-$net_port.service
-OnCalendar=*-*-* 5:00:00
+OnCalendar=*-*-* $restart_time
 
 [Install]
 WantedBy=timers.target

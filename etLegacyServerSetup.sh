@@ -75,6 +75,8 @@ function runInstall() {
     read -rp "Set the URL for current version installer download (.sh):" downloadLink
     # capture desired install directory
     read -rp "Set the installation directory (e.g. /home/username):" installDir
+    # capture desired restart time
+    read -rp "Enter the time of day for automatic restart (e.g. hh:mm:ss / 5am = 05:00:00):" restart_time
     # capture desired username
     read -rp "Enter a username for FTP access:" username
     echo 'Setting up user account for FTP access'
@@ -92,7 +94,7 @@ function runInstall() {
     echo 'Setting up start script for server'
     configureStartScript "${installDir}" "${net_port}"
     echo 'Setting up system service for Enemy Territory Legacy'
-    configureETServices "${installDir}" "${net_port}"
+    configureETServices "${installDir}" "${net_port}" "${restart_time}"
     # install VSFTP
     echo 'Installing and configuring VSFTPD'
     configureVSFTP "${installDir}"
