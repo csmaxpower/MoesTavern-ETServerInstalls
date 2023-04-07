@@ -1,7 +1,7 @@
 # MoesTavern-ETServerInstalls
 ### Files for installing and configuring Wolfenstein:Enemy Territory and ET: Legacy game servers on Linux (x86_64)
 
-These scripts download, install, and configure all necessary components to run an ETLegacy server (tested up to `v2.81.1-54`) with competition settings, configs, and maps. It will also configure FTP access for on-going management of the server.  This script will produce a match ready server ready for connection.
+These scripts download, install, and configure all necessary components to run an ETLegacy server (tested up to `v2.81.1-54`).  From a menu, you can select either a **Competition** based server or a **Public** based server and the installer will download and configure the appropriate settings for each. It will also configure FTP access for on-going management of the server.  More than one server can be installed on the same host with this installer as well using a different `net_port` for each.  Each server instance is installed into a directory corresponding to the servers port number and systemctl services are created for each in the same manner.  (e.g. `/install_path/27960`,`/install_path/27970` & `etlserver-27960.service`, `etlserver-27970.service`)
 
 Note that this install script assumes it is being run a freshly installed Linux server running **Ubuntu 20.xx** and above.  The OS and packages will be updated before the server installation begins.
 
@@ -9,22 +9,25 @@ Note that this install script assumes it is being run a freshly installed Linux 
 
 
 # Directions
-### Installs Enemy Territory Legacy Server with competition (*stopwatch*) settings:
+### Installs ET: Legacy Server with desired options and cusomizations:
 
-- [ ] Download *installETLScrimServer.sh*:   `sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/installETLScrimServer.sh`
-- [ ] Set install script permissions:   `sudo chmod +x installETLScrimServer.sh`
-- [ ] Run *installETLScrimServer.sh*:   `sudo ./installETLScrimServer.sh`
+- [ ] Download *installETLServer.sh*:   `sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/installETLServer.sh`
+- [ ] Set install script permissions:   `sudo chmod +x installETLServer.sh`
+- [ ] Run *installETLServer.sh*:   `sudo ./installETLServer.sh`
+- [ ] Choose menu option to begin installation:
+    
+![menu](https://moestavern.site.nfoservers.com/downloads/images/moes/etl-serverinstall-menu.png)
 
-- The necessary setup scripts will then be downloaded and executed and then there will be user prompts for server customization of the following cvars: 
-    - `sv_hostname`  
+- [ ] The necessary setup scripts will then be downloaded and executed and then there will be user prompts for server customization of the following cvars: 
+    - `sv_hostname`, `net_port`
     - `sv_maxclients`, `sv_privateclients` 
     - `g_password`, `sv_privatepassword`, `rconpassword`, `refereepassword`, `ShoutcastPassword` 
     - `sv_wwwBaseURL`
 
-- You will need the http link to whichever `.sh` installer version for ETLegacy you are wanting to install when the script asks for the installation url.  
+- [ ] You will need the http link to whichever `.sh` installer version for ETLegacy you are wanting to install when the script asks for the installation url.  
     - Example URL: `https://www.etlegacy.com/workflow-files/dl/01dc5c31ca47758e13455d43ae43682fb3ade3dd/lnx64/etlegacy-v2.81.1-54-g01dc5c3-x86_64.sh`
 
-- There will then be user prompts for setting an `username` and `password` for **FTP** access of the server.  This will configure the `vsftpd` service and also write a `DENY` line in the SSH access file for the new user that was just created to keep things nice and secure.
+- [ ] There will then be user prompts for setting an `username` and `password` for **FTP** access of the server.  This will configure the `vsftpd` service and also write a `DENY` line in the SSH access file for the new user that was just created to keep things nice and secure.
 
 - Finally, the script will write and configure a system level service for running the ETL server, a system restart service and system timer to manage daily restarts.  The default timer is set to restart the server service at `05:00am` (server local time). 
 
