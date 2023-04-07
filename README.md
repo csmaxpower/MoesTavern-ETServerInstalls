@@ -55,7 +55,7 @@ etuser@moestavern-na-dev:~# sudo systemctl status etlserver-27960.service
 
 ```bash
 etuser@moestavern-na-dev:~# sudo systemctl status etlmonitor-27960.timer
-● etlmonitor.timer - This timer restarts the Enemy Territory Legacy server service etlserver.service every day at 5am
+● etlmonitor-27960.timer - This timer restarts the Enemy Territory Legacy server service etlserver.service every day at 5am
      Loaded: loaded (/etc/systemd/system/etlmonitor-27960.timer; enabled; vendor preset: enabled)
      Active: active (waiting) since Thu 2023-03-16 06:15:51 PDT; 2 weeks 4 days ago
     Trigger: Tue 2023-04-04 09:00:00 PDT; 14h left
