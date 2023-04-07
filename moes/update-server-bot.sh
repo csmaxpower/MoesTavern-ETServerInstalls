@@ -33,9 +33,9 @@ function runUpdate() {
     sudo mv ${current_dir}/et/etupdate/et*/etl.x86_64 ${current_dir}/et/etl.x86_64
     sudo mv ${current_dir}/et/etupdate/et*/etlded.x86_64 ${current_dir}/et/etlded.x86_64
     # move other game files and paks
+    sudo mv ${current_dir}/et/etupdate/et*/librenderer_opengl1_x86_64.so ${current_dir}/et/
     sudo mv ${current_dir}/et/etupdate/et*/legacy/*.pk3 ${current_dir}/et/legacy/
     sudo mv ${current_dir}/et/etupdate/et*/legacy/qagame.mp.x86_64.so ${current_dir}/et/legacy/
-    sudo mv ${current_dir}/et/etupdate/et*/legacy/librenderer_opengl1_x86_64.so ${current_dir}/et/legacy/
     sudo mv ${current_dir}/et/etupdate/et*/legacy/GeoIP.dat ${current_dir}/et/legacy/
     sudo rm -rf etupdate/
     sudo rm -rf etlegacy-server-update.tar.gz

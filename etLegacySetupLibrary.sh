@@ -29,12 +29,6 @@ function installET() {
     local current_dir=${11}
     local sv_maxclients=${12}
     local net_port=${13}
-    local legacy1_lua=""
-    local legacy3_lua=""
-    local legacy3_snaps_lua=""
-    local legacy5_lua=""
-    local legacy6_lua=""
-    local practice_lua=""
 
     sudo mkdir -p ${current_dir}/${net_port}/
     sudo mkdir -p ${current_dir}/tmp/etsetup
@@ -57,13 +51,6 @@ function installET() {
         sudo mv Legacy-Competition-League-Configs-main/etl_server_comp.cfg ${current_dir}/${net_port}/etmain/etl_server.cfg
         sudo rm -rf main.zip
         sudo rm -rf Legacy-Competition-League-Configs-main/
-        cd ${current_dir}/${net_port}/legacy/configs/
-        sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy1_lua}\"'#' legacy1.config
-        sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy3_lua}\"'#' legacy3.config
-        sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy3_snaps_lua}\"'#' legacy3-snaps.config
-        sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy5_lua}\"'#' legacy5.config
-        sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${legacy6_lua}\"'#' legacy6.config
-        sudo sed -i 's#	setl lua_modules ""#	setl lua_modules '\"${practice_lua}\"'#' practice.config
         cd ${current_dir}/${net_port}/etmain/    
         sudo sed -i 's#set sv_hostname  			     ""#set sv_hostname '\"${sv_hostname}\"'#' etl_server.cfg
         sudo sed -i 's#set g_password				    ""#set g_password '\"${g_password}\"'#' etl_server.cfg
@@ -94,7 +81,7 @@ function installET() {
         if [[ $net_port != "27960" ]]; then
             sudo sed -i 's#//set net_port "27960"#set net_port '\"${net_port}\"'#' etl_server.cfg
         fi            
-        sudo sed -i 'set g_password ""#set g_password '\"${g_password}\"'#' etl_server.cfg
+        sudo sed -i 's#set g_password ""#set g_password '\"${g_password}\"'#' etl_server.cfg
         sudo sed -i 's#set sv_maxclients "24"#set sv_maxclients '\"${sv_maxclients}\"'#' etl_server.cfg
         sudo sed -i 's#set sv_privateclients "4"#set sv_privateclients '\"${sv_privateclients}\"'#' etl_server.cfg
         sudo sed -i 's#set sv_privatepassword ""#set sv_privatepassword '\"${sv_privatepassword}\"'#' etl_server.cfg
@@ -104,6 +91,94 @@ function installET() {
         sudo sed -i 's#set sv_wwwBaseURL ""#set sv_wwwBaseURL '\"${sv_wwwBaseURL}\"'#' etl_server.cfg
     fi
 
+}
+
+function downloadServerConfigs() {
+  local current_dir=${1}
+  
+  echo -e "\nUpdating competition configurations and mapscripts..."
+  cd ${current_dir}/legacy/
+  sudo wget https://github.com/BystryPL/Legacy-Competition-League-Configs/archive/refs/heads/main.zip -O configs.zip
+  unzip -q configs.zip
+  sudo mv Legacy-Competition-League-Configs-main/configs/* ${current_dir}/legacy/configs/
+  sudo mv Legacy-Competition-League-Configs-main/mapscripts/* ${current_dir}/legacy/mapscripts/
+  sudo rm -rf configs.zip
+  sudo rm -rf Legacy-Competition-League-Configs-main/
+  
+  echo -e "\nConfiguration update complete..."
+}
+
+function setFilePermissions() {
+    local current_dir=${1}
+    local ftpuser=${2}
+
+    echo "Setting permissions for installation..."
+    sudo chown -R ${ftpuser}:${ftpuser} ${current_dir}
+}
+
+function runUpdate() {
+    local install_dir=${1}
+    local net_port=${2}
+    local downloadLink=${3}
+
+    echo -e "\nRunning Update..."
+    # remove old pk3 before running update so correct version starts with service restart
+    echo -e "\nRemoving previous version..."
+    cd ${install_dir}/${net_port}/legacy/
+    sudo rm -rf *.pk3
+    cd ${install_dir}/
+    sudo mkdir -p etupdate/
+    echo "Downloading setup files..."
+    sudo wget ${downloadLink} -O etlegacy-server-update.tar.gz
+    sudo tar -xf etlegacy-server-update.tar.gz -C ${install_dir}/etupdate
+    # account for old arch in builds previous to 2.80.2
+    echo -e "\nMove old binaries if found..."
+    sudo mv ${install_dir}/etupdate/et*/etl ${install_dir}/${net_port}/etl
+    sudo mv ${install_dir}/etupdate/et*/etlded ${install_dir}/${net_port}/etlded
+    echo -e "\nCopying new binaries..."
+    # account for new arch in builds after to 2.80.2
+    sudo mv ${install_dir}/etupdate/et*/etl.x86_64 ${install_dir}/${net_port}/etl.x86_64
+    sudo mv ${install_dir}/etupdate/et*/etlded.x86_64 ${install_dir}/${net_port}/etlded.x86_64
+    # move other game files and paks
+    echo -e "\nInstall new version contents..."
+    sudo mv ${install_dir}/etupdate/et*/librenderer_opengl1_x86_64.so ${install_dir}/${net_port}/librenderer_opengl1_x86_64.so
+    sudo mv ${install_dir}/etupdate/et*/legacy/*.pk3 ${install_dir}/${net_port}/legacy/
+    sudo mv ${install_dir}/etupdate/et*/legacy/qagame.mp.x86_64.so ${install_dir}/${net_port}/legacy/
+    sudo mv ${install_dir}/etupdate/et*/legacy/GeoIP.dat ${install_dir}/${net_port}/legacy/
+    echo -e "\nCleanup temporary files..."
+    sudo rm -rf ${install_dir}/etupdate/
+    sudo rm -rf ${install_dir}/etlegacy-server-update.tar.gz
+}
+
+
+# update a server instance
+function updateGameServer() {
+    local installtype=${1}
+    local install_dir=${2}
+    local net_port=${3}
+    local downloadLink=${4}
+    local ftpuser=${5}
+    
+    if ![[ installtype == "comp"]]; then
+        echo -e "\nUpdate process for Competition server starting..."
+        runUpdate "${install_dir}" "${net_port}" "${downloadLink}"
+        downloadServerConfigs
+    else
+        echo -e "\nUpdate process for Public server is starting..."
+        runUpdate "${install_dir}" "${net_port}" "${downloadLink}"
+    fi
+
+    setFilePermissions "${install_dir}" "${ftpuser}"
+    
+    # restart VSFTP after permissions change
+    sudo systemctl restart vsftpd
+    
+    # restart server service and check status
+    echo -e "\nRestarting ET: Legacy Server service for server on port $net_port."
+    sudo systemctl stop etlserver-$net_port.service
+    sudo systemctl start etlserver-$net_port.service
+    sudo systemctl status etlserver-$net_port.service
+    echo -e "\n${BGreen}The server located at ${Color_Off}${BCyan}$install_dir/$net_port/${Color_Off}${BGreen} has been successfully updated${Color_Off}${BWhite}...${Color_Off}"
 }
 
 # remove ETL Server instance
@@ -121,6 +196,8 @@ function removeETLServer() {
     sudo rm /etc/systemd/system/etlrestart-$net_port.service
     sudo rm /etc/systemd/system/etlmonitor-$net_port.timer
     sudo systemctl daemon-reload
+
+    echo -e "\n$(ColorBGreen 'The server found at') ${BCyan}$install_dir${Color_Off}${BWhite}/${Color_Off}${BCyan}$net_port${Color_Off}${BWhite}/${Color_Off} $(ColorBGreen 'and associated system services have been successfully uninstalled.')"
 }
 
 # installation of maps for ETL
