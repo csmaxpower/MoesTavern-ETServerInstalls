@@ -29,7 +29,7 @@ Note that this install script assumes it is being run a freshly installed Linux 
 
 - [ ] There will then be user prompts for setting an `username` and `password` for **FTP** access of the server.  This will configure the `vsftpd` service and also write a `DENY` line in the SSH access file for the new user that was just created to keep things nice and secure.
 
-- Finally, the script will write and configure a system level service for running the ETL server, a system restart service and system timer to manage daily restarts.  The default timer is set to restart the server service at `05:00am` (server local time). 
+- Finally, the script will write and configure a system level service for running the ETL server, a system restart service and system timer to manage daily restarts.  The default timer is set to restart the server service at `05:00am` if not specified during installation (server local time). 
 
 ### Example system service usage:  
 `sudo systemctl start|stop|status|restart etlserver-27960.service`
