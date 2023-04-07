@@ -244,8 +244,6 @@ EOF
 }
 
 # Add the new user account for FTP access
-# Arguments:
-#   Account Username
 function addUserAccount() {
     # variable to store user input
     local username=${1}
