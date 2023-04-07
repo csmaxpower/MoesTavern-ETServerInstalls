@@ -176,7 +176,7 @@ function configureStartScript() {
     local net_port=${2}
 
     cd ${current_dir}/${net_port}/
-    sudo wget https://moestavern.site.nfoservers.com/downloads/server/etl_start.sh
+    sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/etl_start.sh -O etl_start.sh
     sudo chmod +x ${current_dir}/${net_port}/etl_start.sh
     # check to see if custom port was set for the server and write it to start script if so
     if [[ $net_port != "27960" ]]; then

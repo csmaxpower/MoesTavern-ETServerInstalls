@@ -9,8 +9,8 @@ function getCurrentDir() {
 }
 
 function downloadSetupFiles() {
-    sudo wget https://moestavern.site.nfoservers.com/downloads/server/etLegacyServerSetup.sh -O etLegacyServerSetup.sh
-    sudo wget https://moestavern.site.nfoservers.com/downloads/server/etLegacySetupLibrary.sh -O etLegacySetupLibrary.sh
+    sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/etLegacyServerSetup.sh -O etLegacyServerSetup.sh
+    sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/etLegacySetupLibrary.sh -O etLegacySetupLibrary.sh
 }
 
 function setFilePermissions() {
