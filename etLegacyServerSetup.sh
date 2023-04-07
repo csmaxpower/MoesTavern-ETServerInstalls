@@ -174,6 +174,42 @@ function listServers() {
     
 }
 
+function changeRestartTime() {
+    
+    # capture desired UDP port of server
+    read -rp "Enter the net_port # for the server to change the restart time on (e.g. 27960):" net_port
+    # capture desired restart time
+    read -rp "Enter the time of day for automatic restart (e.g. hh:mm:ss / 5am = 05:00:00):" restart_time
+    # stop old timer and remove so new can be created with desired restart time
+    echo -e "\nStopping current timer for server on port: $net_port..."
+    echo -e "\nRemoving current timer for server on port: $net_port from system..."
+    sudo rm /etc/systemd/system/etlmonitor-$net_port.timer
+    sudo systemctl daemon-reload
+    # create service file based on new restart time
+    echo -e "\nCreating new server monitor timer..."
+    sudo cat > /etc/systemd/system/etlmonitor-${net_port}.timer << EOF
+[Unit]
+Description=This timer restarts the Enemy Territory Legacy server service etlserver.service every day at 5am
+Requires=etlrestart-$net_port.service
+
+[Timer]
+Unit=etlrestart-$net_port.service
+OnCalendar=*-*-* $restart_time
+
+[Install]
+WantedBy=timers.target
+EOF
+    # reload systemctl daemon to grab new timer
+    echo -e "\nReloading systemctl daemon..."
+    sudo systemctl daemon-reload
+    sudo systemctl enable etlmonitor-$net_port.timer
+    # start server monitor timer
+    sudo systemctl start etlmonitor-$net_port.timer
+    echo -e "\nThe restart time for the server on port $net_port has been changed to $restart_time."
+    sudo systemctl status etlmonitor-$net_port.timer
+    echo -e "\n"
+}
+
 function main() {
 
 echo -ne "
@@ -184,8 +220,9 @@ $(ColorGreen '3)') Check Server Status
 $(ColorGreen '4)') List Installed Servers
 $(ColorGreen '5)') Create New FTP User
 $(ColorGreen '6)') Change a FTP User Password
-$(ColorRed '7)') Remove a FTP User
-$(ColorRed '8)') Uninstall a Server
+$(ColorGreen '7)') Change Daily Restart Time
+$(ColorRed '8)') Remove a FTP User
+$(ColorRed '9)') Uninstall a Server
 $(ColorGreen '0)') Exit
 $(ColorBlue 'Please choose an option: ')"
 
@@ -197,8 +234,9 @@ $(ColorBlue 'Please choose an option: ')"
         4) listServers ; main ;;
         5) addUserAccountMenu ; main ;;
         6) changeUserPassMenu ; main ;;
-        7) removeFTPUserMenu ; main ;;
-        8) uninstallMenu "del" ; main ;;
+        7) changeRestartTime ; main ;;
+        8) removeFTPUserMenu ; main ;;
+        9) uninstallMenu "del" ; main ;;
 	    0) exit 0 ;;
 	    *) echo -e $red"That is not an option."$clear; WrongCommand;;
     esac
