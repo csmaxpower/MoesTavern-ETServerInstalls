@@ -119,7 +119,7 @@ function uninstallMenu() {
         [yY] ) removeETLServer $install_dir $net_port;;
         [nN] ) echo Returning to main menu...;
             exit;;
-        * ) echo $red"invalid response"$clear; uninstallMenu;
+        *) echo -e "Invalid option selected."; uninstallMenu;
             exit 1;;
     esac
 
@@ -231,7 +231,7 @@ $(ColorBlue 'Please choose an option: ')"
         8) removeFTPUserMenu ; main ;;
         9) uninstallMenu "del" ; main ;;
 	    0) exit 0 ;;
-	    *) echo -e $red"That is not an option."$clear; main;;
+	    *) echo -e $red"Invalid option selected."$clear; main;;
     esac
     
 }
