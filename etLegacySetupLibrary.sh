@@ -35,11 +35,16 @@ function installET() {
     cd ${current_dir}/tmp/etsetup
     sudo wget ${downloadLink} -O etlegacy-server-install.sh
     sudo chmod +x etlegacy-server-install.sh
-    yes | ./etlegacy-server-install.sh
-    sudo mv etlegacy-v*/* ${current_dir}/${net_port}/
+    yes | sudo ./etlegacy-server-install.sh --prefix=$current_dir/$net_port --exclude-subdir --skip-license
+    #sudo mv etlegacy-v*/* ${current_dir}/${net_port}/
     rm -rf ${current_dir}/tmp/etsetup
+    # download main assets to etmain
+    echo -e "\nDownload main assets to /etmain..."
+    sudo wget https://mirror.etlegacy.com/etmain/pak0.pk3 -O ${current_dir}/${net_port}/etmain/pak0.pk3
+    sudo wget https://mirror.etlegacy.com/etmain/pak1.pk3 -O ${current_dir}/${net_port}/etmain/pak1.pk3
+    sudo wget https://mirror.etlegacy.com/etmain/pak2.pk3 -O ${current_dir}/${net_port}/etmain/pak2.pk3
 
-    if [[ $installtype == "comp" ]]; then
+    if [ $installtype == "comp" ]; then
         echo "Starting competition configuration..."
         cd ${current_dir}/${net_port}/legacy/
         sudo mkdir configs/
@@ -78,7 +83,7 @@ function installET() {
         sudo wget https://raw.githubusercontent.com/etlegacy/etlegacy/master/misc/etmain/legacy.cfg -O legacy.cfg
         sudo sed -i 's#set sv_hostname "ET: Legacy Host"#set sv_hostname '\"${sv_hostname}\"'#' etl_server.cfg
         # check to see if custom port was set for server and set net_port cvar if so
-        if [[ $net_port != "27960" ]]; then
+        if [ $net_port != "27960" ]; then
             sudo sed -i 's#//set net_port "27960"#set net_port '\"${net_port}\"'#' etl_server.cfg
         fi            
         sudo sed -i 's#set g_password ""#set g_password '\"${g_password}\"'#' etl_server.cfg
@@ -159,7 +164,7 @@ function updateGameServer() {
     local downloadLink=${4}
     local ftpuser=${5}
     
-    if ![[ installtype == "comp"]]; then
+    if [ $installtype == "comp"]; then
         echo -e "\nUpdate process for Competition server starting..."
         runUpdate "${install_dir}" "${net_port}" "${downloadLink}"
         downloadServerConfigs
@@ -177,7 +182,7 @@ function updateGameServer() {
     echo -e "\nRestarting ET: Legacy Server service for server on port $net_port."
     sudo systemctl stop etlserver-$net_port.service
     sudo systemctl start etlserver-$net_port.service
-    sudo systemctl status etlserver-$net_port.service
+    sudo systemctl status etlserver-$net_port.service --lines=0
     echo -e "\n${BGreen}The server located at ${Color_Off}${BCyan}$install_dir/$net_port/${Color_Off}${BGreen} has been successfully updated${Color_Off}${BWhite}...${Color_Off}"
 }
 
@@ -251,14 +256,20 @@ function installMaps() {
 function configureStartScript() {
     local current_dir=${1}
     local net_port=${2}
+    local installtype=${3}
 
     cd ${current_dir}/${net_port}/
     sudo wget https://raw.githubusercontent.com/csmaxpower/MoesTavern-ETServerInstalls/main/etl_start.sh -O etl_start.sh
     sudo chmod +x ${current_dir}/${net_port}/etl_start.sh
     # check to see if custom port was set for the server and write it to start script if so
-    if [[ $net_port != "27960" ]]; then
+    if [ $net_port != "27960" ]; then
             sudo sed -i 's#    +set net_port 27960#    +set net_port '${net_port}'#' etl_start.sh
-    fi   
+    fi
+    if [ $installtype == "pub" ]; then
+            sudo sed -i 's#    +exec etl_server.cfg#    +exec etl_server.cfg \\#' etl_start.sh
+            sudo sh -c 'echo "    +set omnibot_enable 1 \\" >> etl_start.sh'
+            sudo sh -c 'echo "    +set omnibot_path \"\${DIR}/legacy/omni-bot\"" >> etl_start.sh'
+    fi
 }
 
 # downloads and places the systemd linux service that runs ETL.  Stop, Stop, Restart, and enabled on Startup.
@@ -267,7 +278,7 @@ function configureETServices() {
     local net_port=${2}
     local restart_time=${3}
 
-    if ![[ restart_time == ""]]; then
+    if [ $restart_time == ""]; then
         restart_time="5:00:00"
     fi
 
@@ -318,6 +329,7 @@ EOF
     sudo systemctl enable etlmonitor-$net_port.timer
     # start server monitor timer
     sudo systemctl start etlmonitor-$net_port.timer
+
 }
 
 # Add the new user account for FTP access

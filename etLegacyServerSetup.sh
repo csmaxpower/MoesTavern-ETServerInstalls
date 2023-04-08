@@ -15,6 +15,9 @@ function includeDependencies() {
     source "${current_dir}/etLegacySetupLibrary.sh"
 }
 
+current_dir=$(getCurrentDir)
+includeDependencies
+
 # Color  Variables
 Black='\033[0;30m'        # Black
 Red='\033[0;31m'          # Red
@@ -94,10 +97,6 @@ ColorBCyan(){
 	echo -ne $BCyan$1$Color_Off
 }
 
-
-current_dir=$(getCurrentDir)
-includeDependencies
-
 function runInstall() {
     local installtype=${1}
 
@@ -110,7 +109,7 @@ function runInstall() {
     # capture desired number of private clients
     read -rp "Enter the number of private slots to be reserved:" sv_privateclients
     # set game password if installation type is competition
-    if [[ $installtype == "comp" ]]; then
+    if [ $installtype == "comp" ]; then
         # capture desired password for server
         read -rp "Set the game password:" g_password
     else
@@ -134,7 +133,7 @@ function runInstall() {
     read -rp "Enter the time of day for automatic restart (e.g. hh:mm:ss / 5am = 05:00:00):" restart_time
     # capture desired username
     read -rp "Enter a username for FTP access:" username
-    echo 'Setting up user account for FTP access'
+    echo -e "Setting up user account for FTP access"
     addUserAccount "${username}"
     # Updating server packages
     echo 'Updating server packages'
@@ -147,7 +146,7 @@ function runInstall() {
     echo "$installDir"
     installMaps "${installDir}"
     echo 'Setting up start script for server'
-    configureStartScript "${installDir}" "${net_port}"
+    configureStartScript "${installDir}" "${net_port}" "${installtype}"
     echo 'Setting up system service for Enemy Territory Legacy'
     configureETServices "${installDir}" "${net_port}" "${restart_time}"
     # install VSFTP
@@ -159,13 +158,11 @@ function runInstall() {
     echo -e "\nStarting Enemy Territory Server...\n"
     sudo systemctl start etlserver-$net_port.service
     sudo systemctl start etlmonitor-$net_port.timer
-    sudo systemctl status etlserver-$net_port.service
+    echo -e "\nChecking server status...\n"
+    sudo systemctl status etlserver-$net_port.service --lines=0 --no-pager --full
 
-    if [[ $installtype == "comp" ]]; then
-        echo -e "\nSetup Complete and the server $servername has been started with competition settings.\n\nYou may now quit the installer or install another server instance on a different port.\n"
-    else
-        echo -e "\nSetup Complete and the server $servername has been started with public settings.\n\nYou may now quit the installer or install another server instance on a different port.\n"
-    fi
+    echo -e "\n${BGreen}Setup Complete and the server at${Color_Off} ${BCyan}$installDir/$net_port${Color_Off} ${BGreen}has been started.${Color_Off}\n\n${BYellow}You may now quit the installer or install another server instance on a different port.${Color_Off}\n"
+    
 }
 
 function uninstallInfo() {
@@ -242,7 +239,7 @@ function checkServerStatus() {
     
     # capture desired username to delete
     read -rp "Enter the port number for server:" net_port
-    sudo systemctl status etlserver-$net_port.service
+    sudo systemctl status etlserver-$net_port.service --lines=0 --no-pager --full
     echo -e "\nReturing to main menu..."
 }
 
@@ -304,7 +301,7 @@ function updateServerInfo () {
     # capture desired update download URL
     read -rp "Set the URL for current version installer download (.tar.gz):" downloadLink
 
-    if ![[ installtype == "comp"]]; then
+    if [ installtype == "comp"]; then
         updateGameServer "comp" "${installDir}" "${net_port}" "${downloadLink}" "${ftpuser}"
     else
         updateGameServer "pub" "${installDir}" "${net_port}" "${downloadLink}" "${ftpuser}"
