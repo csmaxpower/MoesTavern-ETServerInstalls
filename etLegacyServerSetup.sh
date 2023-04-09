@@ -127,16 +127,16 @@ function runInstall() {
 
     # capture desired name of the server
     echo -ne "\n${BWhite}Enter the Server Name ${Color_Off}${BCyan}(can be with color)${Color_Off}${BWhite}: ${Color_Off}"
-    IFS="" read sv_hostname
+    read -r -n 26 "sv_hostname"
     # capture desired UDP port of server
     echo -ne "\n${BWhite}Enter the UDP Port # for server to run on ${Color_Off}${BCyan}(Default: 27960)${Color_Off}${BWhite}: ${Color_Off}"
-    read  net_port 
+    read -n 5 "net_port"
     # capture desired number of maximum clients
     echo -ne "\n${BWhite}Enter the number of maximum client slots: ${Color_Off}"
-    read sv_maxclients 
+    read -n 2 "sv_maxclients"
     # capture desired number of private clients
     echo -ne "\n${BWhite}Enter the number of private slots to be reserved: ${Color_Off}"
-    read sv_privateclients 
+    read -n 1 "sv_privateclients"
     # set game password if installation type is competition
     if [ $installtype == "comp" ]; then
         # capture desired password for server
@@ -147,31 +147,31 @@ function runInstall() {
     fi
     # capture desired private slot password
     echo -ne "\n${BWhite}Set the private slot password: ${Color_Off}" 
-    read sv_privatepassword 
+    read "sv_privatepassword"
     # capture desired RCON password
     echo -ne "\n${BWhite}Set the RCON Password: ${Color_Off}"
-    read rconpassword 
+    read "rconpassword"
     # capture desired ref password
     echo -ne "\n${BWhite}Set the Referee Password: ${Color_Off}"
-    read refereepassword 
+    read "refereepassword"
     # capture desired ref password
     echo -ne "\n${BWhite}Set the Shoutcast Password: ${Color_Off}"
-    read ShoutcastPassword 
+    read "ShoutcastPassword" 
     # capture desired redirect and file download URL
     echo -ne "\n${BWhite}Set the URL for file downloads and redirect: ${Color_Off}"
-    read sv_wwwBaseURL 
+    read "sv_wwwBaseURL"
     # capture desired installer download URL
     echo -ne "\n${BWhite}Set the URL for current version installer download ${Color_Off}${BCyan}(.sh)${Color_Off}${BWhite}: ${Color_Off}"
-    read downloadLink 
+    read -r "downloadLink"
     # capture desired install directory
     echo -ne "\n${BWhite}Set the installation directory ${Color_Off}${BCyan}(e.g. /home/username)${Color_Off}${BWhite}: ${Color_Off}"
-    read installDir
+    read "installDir"
     # capture desired restart time
     echo -ne "\n${BWhite}Enter the time of day for automatic restart ${Color_Off}${BCyan}(e.g. hh:mm:ss / 5am = 05:00:00)${Color_Off}${BWhite}: ${Color_Off}"
-    read restart_time 
+    read -n 8 "restart_time"
     # capture desired username
     echo -ne "\n${BWhite}Enter a username for FTP access:  ${Color_Off}"
-    read username 
+    read -n 32 "username"
     echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Setting up user account for ${BCyan}FTP${Color_Off} ${BYellow}access${Color_Off}${BWhite} -------${Color_Off}"
     echo -e "\n${BWhite}Please enter a password for ${Color_Off}${BCyan}$username${Color_Off}"
     addUserAccount "${username}"
@@ -387,8 +387,8 @@ $(ColorBCyan '0)') Main Menu
 
 function main() {
 
+echo -ne "\n${BWhite}Main Menu:${Color_Off}"
 echo -ne "
-\n${BWhite}Main Menu:${Color_Off}
 $(ColorBGreen '1)') ${IWhite}Install${Color_Off} a Server
 $(ColorBGreen '2)') ${IWhite}Update${Color_Off} a Server
 $(ColorBGreen '3)') Check Server ${IWhite}Status${Color_Off}
