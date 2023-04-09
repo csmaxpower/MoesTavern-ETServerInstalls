@@ -4,20 +4,6 @@
 
 #set -e
 
-function getCurrentDir() {
-    local current_dir="${BASH_SOURCE%/*}"
-    if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
-    echo "${current_dir}"
-}
-
-function includeDependencies() {
-    # shellcheck source=./setupLibrary.sh
-    source "${current_dir}/etLegacySetupLibrary.sh"
-}
-
-current_dir=$(getCurrentDir)
-includeDependencies
-
 # Color  Variables
 Black='\033[0;30m'        # Black
 Red='\033[0;31m'          # Red
@@ -72,104 +58,160 @@ UCyan='\033[4;36m'        # Cyan
 UWhite='\033[4;37m'       # White
 
 # Color Functions
-ColorGreen(){
+function ColorGreen(){
 	echo -ne $Green$1$Color_Off
 }
-ColorBGreen(){
+function ColorBGreen(){
 	echo -ne $BGreen$1$Color_Off
 }
-ColorBlue(){
+function ColorBlue(){
 	echo -ne $Blue$1$Color_Off
 }
-ColorPurple(){
+function ColorPurple(){
 	echo -ne $Purple$1$Color_Off
 }
-ColorRed(){
+function ColorRed(){
 	echo -ne $Red$1$Color_Off
 }
-ColorBRed(){
+function ColorBRed(){
 	echo -ne $BRed$1$Color_Off
 }
-ColorCyan(){
+function ColorCyan(){
 	echo -ne $Cyan$1$Color_Off
 }
-ColorBCyan(){
+function ColorBCyan(){
 	echo -ne $BCyan$1$Color_Off
 }
+
+function getCurrentDir() {
+    local current_dir="${BASH_SOURCE%/*}"
+    if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
+    echo "${current_dir}"
+}
+
+function includeDependencies() {
+    # shellcheck source=./setupLibrary.sh
+    source "${current_dir}/etLegacySetupLibrary.sh"
+}
+
+function author() {
+    sudo echo -e "\n"
+    sudo echo -e "            ____ ___ _____ ____   _____  " | /usr/games/lolcat -S 27 
+    sudo echo -e "           / __ \`__ \  __ \  _ \ _  __/ " | /usr/games/lolcat -S 27 
+    sudo echo -e "          / / / / / / /_/ /  __/(__  ) _ " | /usr/games/lolcat -S 27 
+    sudo echo -e "         /_/ /_/ /_/\____/\___//____/ (_)" | /usr/games/lolcat -S 27 
+    sudo echo -e "               Moe's Tavern Gaming       " | /usr/games/lolcat -S 27
+    sudo echo -e "\n\n\n\n"
+}
+
+function title() {
+    sudo echo -e "${BWhite}_________________________________________________${Color_Off}"
+    sudo echo -e "${BRed} _____ _____   ${Color_Off}${BWhite} _                                ${Color_Off}"
+    sudo echo -e "${BRed}| ____|_   _|  ${Color_Off}${BWhite}| |    ___  __ _  __ _  ___ _   _ ${Color_Off}"
+    sudo echo -e "${BRed}|  _|   | |(_) ${Color_Off}${BWhite}| |   / _ \/ _\` |/ _\` |/ __| | | |${Color_Off}"
+    sudo echo -e "${BRed}| |___  | | _  ${Color_Off}${BWhite}| |__|  __/ (_| | (_| | (__| |_| |${Color_Off}"
+    sudo echo -e "${BRed}|_____| |_|(_) ${Color_Off}${BWhite}|_____\___|\__, |\__,_|\___|\__, |${Color_Off}"
+    sudo echo -e "${BRed}               ${Color_Off}${BWhite}            |___/            |___/${Color_Off}"
+    sudo echo -e "${BWhite}_________________________________________________${Color_Off}"
+    sudo echo -e "    ${BWhite}Server Installation Manager${Color_Off} ${BRed}Version${Color_Off} ${BWhite}3.0${Color_Off}       "
+}
+
+current_dir=$(getCurrentDir)
+includeDependencies
+installLOLcat
+author
+title
 
 function runInstall() {
     local installtype=${1}
 
     # capture desired name of the server
-    read -rp "Enter the Server Name (can be with color):" sv_hostname
+    echo -ne "\n${BWhite}Enter the Server Name ${Color_Off}${BCyan}(can be with color)${Color_Off}${BWhite}: ${Color_Off}"
+    IFS="" read sv_hostname
     # capture desired UDP port of server
-    read -rp "Enter the UDP Port # for server to run on (Default: 27960):" net_port
+    echo -ne "\n${BWhite}Enter the UDP Port # for server to run on ${Color_Off}${BCyan}(Default: 27960)${Color_Off}${BWhite}: ${Color_Off}"
+    read  net_port 
     # capture desired number of maximum clients
-    read -rp "Enter the number of maximum client slots:" sv_maxclients
+    echo -ne "\n${BWhite}Enter the number of maximum client slots: ${Color_Off}"
+    read sv_maxclients 
     # capture desired number of private clients
-    read -rp "Enter the number of private slots to be reserved:" sv_privateclients
+    echo -ne "\n${BWhite}Enter the number of private slots to be reserved: ${Color_Off}"
+    read sv_privateclients 
     # set game password if installation type is competition
     if [ $installtype == "comp" ]; then
         # capture desired password for server
-        read -rp "Set the game password:" g_password
+        echo -ne "\n${BWhite}Set the game password: ${Color_Off}"
+        read g_password 
     else
         g_password=""
     fi
     # capture desired private slot password
-    read -rp "Set the private slot password:" sv_privatepassword
+    echo -ne "\n${BWhite}Set the private slot password: ${Color_Off}" 
+    read sv_privatepassword 
     # capture desired RCON password
-    read -rp "Set the RCON Password:" rconpassword
+    echo -ne "\n${BWhite}Set the RCON Password: ${Color_Off}"
+    read rconpassword 
     # capture desired ref password
-    read -rp "Set the Referee Password:" refereepassword
+    echo -ne "\n${BWhite}Set the Referee Password: ${Color_Off}"
+    read refereepassword 
     # capture desired ref password
-    read -rp "Set the Shoutcast Password:" ShoutcastPassword
+    echo -ne "\n${BWhite}Set the Shoutcast Password: ${Color_Off}"
+    read ShoutcastPassword 
     # capture desired redirect and file download URL
-    read -rp "Set the URL for file downloads and redirect:" sv_wwwBaseURL
+    echo -ne "\n${BWhite}Set the URL for file downloads and redirect: ${Color_Off}"
+    read sv_wwwBaseURL 
     # capture desired installer download URL
-    read -rp "Set the URL for current version installer download (.sh):" downloadLink
+    echo -ne "\n${BWhite}Set the URL for current version installer download ${Color_Off}${BCyan}(.sh)${Color_Off}${BWhite}: ${Color_Off}"
+    read downloadLink 
     # capture desired install directory
-    read -rp "Set the installation directory (e.g. /home/username):" installDir
+    echo -ne "\n${BWhite}Set the installation directory ${Color_Off}${BCyan}(e.g. /home/username)${Color_Off}${BWhite}: ${Color_Off}"
+    read installDir
     # capture desired restart time
-    read -rp "Enter the time of day for automatic restart (e.g. hh:mm:ss / 5am = 05:00:00):" restart_time
+    echo -ne "\n${BWhite}Enter the time of day for automatic restart ${Color_Off}${BCyan}(e.g. hh:mm:ss / 5am = 05:00:00)${Color_Off}${BWhite}: ${Color_Off}"
+    read restart_time 
     # capture desired username
-    read -rp "Enter a username for FTP access:" username
-    echo -e "Setting up user account for FTP access"
+    echo -ne "\n${BWhite}Enter a username for FTP access:  ${Color_Off}"
+    read username 
+    echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Setting up user account for ${BCyan}FTP${Color_Off} ${BYellow}access${Color_Off}${BWhite} -------${Color_Off}"
+    echo -e "\n${BWhite}Please enter a password for ${Color_Off}${BCyan}$username${Color_Off}"
     addUserAccount "${username}"
     # Updating server packages
-    echo 'Updating server packages'
+    echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Updating server packages${Color_Off}${BWhite} -------${Color_Off}"
     updateServer
-    echo 'Installing needed software'
+    echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Installing needed software${Color_Off}${BWhite} -------${Color_Off}"
     installUnzip
-    echo 'Installing Enemy Territory Legacy Server'
+    echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Installing ${Color_Off}${BWhite}ET:${Color_Off} ${BRed}Legacy${Color_Off} ${BWhite}Server${Color_Off}${BWhite} -------${Color_Off}"
     installET "${installtype}" "${sv_hostname}" "${g_password}" "${sv_privateclients}" "${sv_privatepassword}" "${rconpassword}" "${refereepassword}" "${ShoutcastPassword}" "${sv_wwwBaseURL}" "${downloadLink}" "${installDir}" "${sv_maxclients}" "${net_port}"
-    echo 'Downloading maps'
-    echo "$installDir"
+    echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Downloading maps${Color_Off}${BWhite} -------${Color_Off}"
+    echo -e "$installDir"
     installMaps "${installDir}"
-    echo 'Setting up start script for server'
+    echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Setting up start script for server${Color_Off}${BWhite} -------${Color_Off}"
     configureStartScript "${installDir}" "${net_port}" "${installtype}"
-    echo 'Setting up system service for Enemy Territory Legacy'
+    echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Setting up system service for ${Color_Off}${BWhite}ET:${Color_Off} ${BRed}Legacy${Color_Off}${BWhite} -------${Color_Off}"
     configureETServices "${installDir}" "${net_port}" "${restart_time}"
     # install VSFTP
-    echo 'Installing and configuring VSFTPD'
+    echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Installing and configuring ${Color_Off}${BCyan}VSFTPD${Color_Off}${BWhite} -------${Color_Off}"
     configureVSFTP "${installDir}"
     # configure firewall rules and enable firewall for access
-    echo -e "Configuring firewall rules for Enemy Territory and FTP access"
+    echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Configuring firewall rules for ${Color_Off}${BWhite}ET:${Color_Off} ${BRed}Legacy${Color_Off} ${BYellow}and${Color_Off} ${BCyan}FTP${Color_Off} ${BYellow}access${Color_Off}${BWhite} -------${Color_Off}"
     configureUFW
-    echo -e "\nStarting Enemy Territory Server...\n"
+    echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Starting ${Color_Off}${BWhite}ET:${Color_Off} ${BRed}Legacy${Color_Off} ${BCyan}systemctl services${Color_Off}${BWhite} -------${Color_Off}\n"
     sudo systemctl start etlserver-$net_port.service
     sudo systemctl start etlmonitor-$net_port.timer
-    echo -e "\nChecking server status...\n"
+    echo -e "\n${BYellow}Checking server status${Color_Off}${BWhite}...${Color_Off}\n"
     sudo systemctl status etlserver-$net_port.service --lines=0 --no-pager --full
 
-    echo -e "\n${BGreen}Setup Complete and the server at${Color_Off} ${BCyan}$installDir/$net_port${Color_Off} ${BGreen}has been started.${Color_Off}\n\n${BYellow}You may now quit the installer or install another server instance on a different port.${Color_Off}\n"
+    echo -e "\n${BGreen}Setup Complete and the server at${Color_Off} ${BCyan}$installDir/$net_port${Color_Off} ${BGreen}has been started${Color_Off}${BWhite}.${Color_Off}\n\n${BYellow}You may now quit the installer or install another server instance on a different port.${Color_Off}\n"
     
 }
 
 function uninstallInfo() {
     # capture desired UDP port of server to delete
-    read -rp "Enter the root installation directory of your servers (e.g. /home/username):" install_dir
+    echo -ne "\n${BWhite}Enter the root installation directory of your servers ${Color_Off}${BCyan}(e.g. /home/username)${BWhite}: ${Color_Off}"
+    read install_dir
     # capture desired UDP port of server to delete
-    read -rp "Enter the UDP Port # for server you wish to uninstall (e.g. 27960):" net_port
+    echo -ne "\n${BWhite}Enter the UDP Port # for server you wish to uninstall ${Color_Off}${BCyan}(e.g. 27960)${BWhite}: ${Color_Off}"
+    read net_port 
     # send info to uninstall procedure
     uninstallMenu "${install_dir}" "${net_port}"
 }
@@ -178,8 +220,8 @@ function uninstallMenu() {
     local install_dir=${1}
     local net_port=${2}
 
-    echo -e "\nYou have chosen to uninstall server found at $install_dir/$net_port/"
-    read -p "$(ColorRed 'Do you want to proceed?') (y/n) " yn
+    echo -e "\n${BYellow}You have chosen to ${Color_Off}${BRed}uninstall${Color_Off} ${BYellow}server found at${Color_Off}${BWhite}: ${Color_Off}${BWhite}$install_dir/$net_port/${Color_Off}\n"
+    read -p "$(ColorBRed 'Are you sure you want to proceed?') (y/n) " yn
 
     case $yn in 
         [yY] ) removeETLServer $install_dir $net_port;;
@@ -214,7 +256,8 @@ $(ColorBCyan '0)') Main Menu
 function addUserAccountMenu() {
 
     # capture desired username to create
-    read -rp "Enter a username for FTP access:" username
+    echo -ne "\n${BWhite}Enter a username for FTP access: ${Color_Off}"
+    read username
     addUserAccount "${username}"
     
 }
@@ -222,7 +265,8 @@ function addUserAccountMenu() {
 function changeUserPassMenu() {
     
     # capture desired username for password change
-    read -rp "Enter a username for FTP access:" username
+    echo -ne "\n${BWhite}Enter a username for FTP access: ${Color_Off}"
+    read username 
     setFTPUserPass "${username}"
     
 }
@@ -230,15 +274,17 @@ function changeUserPassMenu() {
 function removeFTPUserMenu() {
     
     # capture desired username to delete
-    read -rp "Enter the FTP username to be deleted:" username
+    echo -ne "\n${BWhite}Enter the FTP username to be deleted: ${Color_Off}"
+    read username 
     removeFTPUser "${username}"
-    echo -e "\nThe FTP user $username has been deleted."
+    echo -e "\n${BGreen}The FTP user ${Color_Off}${BCyan}$username${Color_Off} ${BGreen}has been deleted${Color_Off}${BWhite}.${Color_Off}"
 }
 
 function checkServerStatus() {
     
     # capture desired username to delete
-    read -rp "Enter the port number for server:" net_port
+    echo -ne "\n{BWhite}Enter the port number for server: ${Color_Off}"
+    read net_port 
     sudo systemctl status etlserver-$net_port.service --lines=0 --no-pager --full
     echo -e "\nReturing to main menu..."
 }
@@ -246,24 +292,27 @@ function checkServerStatus() {
 function listServers() {
     
     # capture desired username to delete
-    echo -e "\nThe following server services were found:\n"
-    sudo ls -l /etc/systemd/system/etlserver-*.service
+    echo -e "\n${BWhite}------ ${Color_Off}${BRed}ET:${Color_Off}${BWhite}Legacy ${Color_Off}${BYellow}Servers${Color_Off}${BWhite} ------${Color_Off}\n"
+    sudo ls /etc/systemd/system/ "$@" 2>/dev/null | grep etlserver* || echo -e "\n${BCyan}No ${BRed}ET:${Color_Off}${BWhite}Legacy${Color_Off}${BCyan} server services were found${Color_Off}${BWhite}.${Color_Off}"
+    echo -e "\n\n"
     
 }
 
 function changeRestartTime() {
     
     # capture desired UDP port of server
-    read -rp "Enter the net_port # for the server to change the restart time on (e.g. 27960):" net_port
+    echo -ne "\n${BWhite}Enter the net_port # for the server to change the restart time on (e.g. 27960): ${Color_Off}"
+    read net_port
     # capture desired restart time
-    read -rp "Enter the time of day for automatic restart (e.g. hh:mm:ss / 5am = 05:00:00):" restart_time
+    echo -ne "\n${BWhite}Enter the time of day for automatic restart (e.g. hh:mm:ss / 5am = 05:00:00): ${Color_Off}"
+    read restart_time 
     # stop old timer and remove so new can be created with desired restart time
-    echo -e "\nStopping current timer for server on port: $net_port..."
-    echo -e "\nRemoving current timer for server on port: $net_port from system..."
+    echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Stopping current timer for server on port: ${Color_Off}${BCyan}$net_port${Color_Off}${BWhite} -------${Color_Off}"
+    echo -e "\n${BWhite}------- ${Color_Off}${BRed}Removing current timer for server on port: ${Color_Off}${BCyan}$net_port${Color_Off}${BWhite} -------${Color_Off}"
     sudo rm /etc/systemd/system/etlmonitor-$net_port.timer
     sudo systemctl daemon-reload
     # create service file based on new restart time
-    echo -e "\nCreating new server monitor timer..."
+    echo -e "\n${BWhite}------- ${Color_Off}${BGreen}Creating new server monitor timer${Color_Off}${BWhite} -------${Color_Off}"
     sudo cat > /etc/systemd/system/etlmonitor-${net_port}.timer << EOF
 [Unit]
 Description=This timer restarts the Enemy Territory Legacy server service etlserver.service every day at 5am
@@ -277,12 +326,12 @@ OnCalendar=*-*-* $restart_time
 WantedBy=timers.target
 EOF
     # reload systemctl daemon to grab new timer
-    echo -e "\nReloading systemctl daemon..."
+    echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Reloading systemctl daemon ${Color_Off}${BWhite} -------${Color_Off}"
     sudo systemctl daemon-reload
     sudo systemctl enable etlmonitor-$net_port.timer
     # start server monitor timer
     sudo systemctl start etlmonitor-$net_port.timer
-    echo -e "\nThe restart time for the server on port $net_port has been changed to $restart_time."
+    echo -e "\n${BGreen}The restart time for the server on port ${Color_Off}${BYellow}$net_port${Color_Off} ${BGreen}has been changed to${Color_Off} ${BYellow}$restart_time${Color_Off}${BWhite}.${Color_Off}"
     sudo systemctl status etlmonitor-$net_port.timer
     echo -e "\n"
 }
@@ -293,13 +342,17 @@ function updateServerInfo () {
     local installtype=${1}
 
     # capture desired install directory
-    read -rp "Enter the installation directory of the server to update (e.g. /home/username):" installDir
+    echo -ne "\n${BWhite}Enter the installation directory of the server to update ${Color_Off}${BCyan}(e.g. /home/username)${Color_Off}${BWhite}:  ${Color_Off}"
+    read installDir 
     # capture desired UDP port of server
-    read -rp "Enter the ${BWhite}net_port${Clear_Off} # for the server to update (e.g. 27960):" net_port
+    echo -ne "\n${BWhite}Enter the ${BWhite}net_port${Clear_Off} # for the server to update ${Color_Off}${BCyan}(e.g. 27960)${Color_Off}${BWhite}:  ${Color_Off}"
+    read net_port 
     # capture desired install directory
-    read -rp "Enter the FTP username used to manage server (e.g. moesftpuser):" ftpuser
+    echo -ne "\n${BWhite}Enter the FTP username used to manage server ${Color_Off}${BCyan}(e.g. moesftpuser)${Color_Off}${BWhite}:  ${Color_Off}"
+    read ftpuser 
     # capture desired update download URL
-    read -rp "Set the URL for current version installer download (.tar.gz):" downloadLink
+    echo -ne "\n${BWhite}Set the URL for current version installer download ${Color_Off}${BCyan}(.tar.gz)${BWhite}:  ${Color_Off}"
+    read downloadLink 
 
     if [ installtype == "comp"]; then
         updateGameServer "comp" "${installDir}" "${net_port}" "${downloadLink}" "${ftpuser}"
@@ -335,18 +388,17 @@ $(ColorBCyan '0)') Main Menu
 function main() {
 
 echo -ne "
-${Purple}Moes Tavern Gaming${Color_Off}
-\n${BWhite}ET:${Color_Off} ${BRed}Legacy${Color_Off}${BWhite} - Server Manager\n
-$(ColorBGreen '1)') Install a Server
-$(ColorBGreen '2)') Update a Server
-$(ColorBGreen '3)') Check Server Status
-$(ColorBGreen '4)') List Installed Servers
-$(ColorBGreen '5)') Create New FTP User
-$(ColorBGreen '6)') Change an FTP User Password
-$(ColorBGreen '7)') Change Daily Restart Time
-$(ColorBRed '8)') Remove an FTP User
-$(ColorBRed '9)') Uninstall a Server
-$(ColorBCyan '0)') Exit
+\n${BWhite}Main Menu:${Color_Off}
+$(ColorBGreen '1)') ${IWhite}Install${Color_Off} a Server
+$(ColorBGreen '2)') ${IWhite}Update${Color_Off} a Server
+$(ColorBGreen '3)') Check Server ${IWhite}Status${Color_Off}
+$(ColorBGreen '4)') ${IWhite}List${Color_Off} Installed Servers
+$(ColorBGreen '5)') Create ${IWhite}New FTP User${Color_Off}
+$(ColorBGreen '6)') Change an FTP User ${IWhite}Password${Color_Off}
+$(ColorBGreen '7)') Change Daily ${IWhite}Restart Time${Color_Off}
+$(ColorBRed '8)') ${IWhite}Remove${Color_Off} an FTP User
+$(ColorBRed '9)') ${IWhite}Uninstall${Color_Off} a Server
+$(ColorBCyan '0)') ${IWhite}Exit${Color_Off}
 \n${BYellow}Please choose an option: ${Color_Off}"
 
     read a
@@ -360,10 +412,10 @@ $(ColorBCyan '0)') Exit
         7) changeRestartTime ; main ;;
         8) removeFTPUserMenu ; main ;;
         9) uninstallInfo ; main ;;
-	    0) exit 0 ;;
+	    0) author ; exit 0;;
 	    *) echo -e $red"Invalid option selected."$clear; main;;
     esac
-    
+
 }
 
 main
