@@ -66,4 +66,4 @@ etuser@moestavern-na-dev:~# sudo systemctl status etlmonitor-27960.timer
 
 ### Watch the video tutorial below:
 
-[![Watch the video](https://moestavern.site.nfoservers.com/downloads/images/moes/preview.png)](https://youtu.be/wozGGG6QtHU)
+[![Watch the video](https://moestavern.site.nfoservers.com/downloads/images/moes/ytpreview.png)](https://youtu.be/wozGGG6QtHU)
