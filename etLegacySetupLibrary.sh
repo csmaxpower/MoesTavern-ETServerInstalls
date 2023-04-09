@@ -377,11 +377,13 @@ function removeFTPUser() {
 function configureVSFTP() {
     local current_dir=${1}
 
-    sudo apt install -y vsftpd | /usr/games/lolcat -S 39
-    cd ${current_dir}/${net_port}/
-    sudo echo -e "\n${BYellow}Downloading VSFTP configuration file${Color_Off}${BWhite}...${Color_Off}\n"
-    sudo wget http://moestavern.site.nfoservers.com/downloads/server/vsftpd.conf -q --show-progress -O vsftpd.conf
-    yes | sudo mv vsftpd.conf /etc/vsftpd.conf
+    if command -v vsftpd > /dev/null 2>&1; then
+        sudo apt install -y vsftpd | /usr/games/lolcat -S 39
+        cd ${current_dir}/${net_port}/
+        sudo echo -e "\n${BYellow}Downloading VSFTP configuration file${Color_Off}${BWhite}...${Color_Off}\n"
+        sudo wget http://moestavern.site.nfoservers.com/downloads/server/vsftpd.conf -q --show-progress -O vsftpd.conf
+        yes | sudo mv vsftpd.conf /etc/vsftpd.conf
+    fi
     # set FTP permissions for new user
     sudo usermod -d ${current_dir}/${net_port}/ "${username}"
     sudo chown -R "${username}":"${username}" ${current_dir}
