@@ -9,7 +9,7 @@ function installLOLcat() {
         sudo apt -y update
         sudo apt-get install -y -q lolcat
     else
-        sudo echo -e "Starting Main Menu..."
+        sudo echo -e "Starting Main Menu..." | /usr/games/lolcat -S 39
     fi
 }
 
