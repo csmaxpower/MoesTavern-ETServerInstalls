@@ -142,28 +142,28 @@ function runUpdate() {
     echo -e "\n${BRed}Removing previous version${Color_Off}${BWhite}..................${Color_Off}"
     cd ${install_dir}/${net_port}/legacy/
     sudo rm -rf *.pk3
-    cd ${install_dir}/
+    cd ${install_dir}/${net_port}
     sudo mkdir -p etupdate/
     echo "\n${BWhite}------- ${Color_Off}${BYellow}Downloading setup files${Color_Off}${BWhite} -------${Color_Off}"
     sudo wget ${downloadLink} -q --show-progress -O etlegacy-server-update.tar.gz
     sudo tar -xf etlegacy-server-update.tar.gz -C ${install_dir}/etupdate | /usr/games/lolcat -S 39
     # account for old arch in builds previous to 2.80.2
     echo -e "\n${BYellow}Move old binaries if found${Color_Off}${BWhite}..................${Color_Off}"
-    sudo mv ${install_dir}/etupdate/et*/etl ${install_dir}/${net_port}/etl
-    sudo mv ${install_dir}/etupdate/et*/etlded ${install_dir}/${net_port}/etlded
+    sudo mv ${install_dir}/${net_port}/etupdate/et*/etl ${install_dir}/${net_port}/etl
+    sudo mv ${install_dir}/${net_port}/etupdate/et*/etlded ${install_dir}/${net_port}/etlded
     echo -e "\n${BGreen}Copying new binaries${Color_Off}${BWhite}..................${Color_Off}"
     # account for new arch in builds after to 2.80.2
-    sudo mv ${install_dir}/etupdate/et*/etl.x86_64 ${install_dir}/${net_port}/etl.x86_64
-    sudo mv ${install_dir}/etupdate/et*/etlded.x86_64 ${install_dir}/${net_port}/etlded.x86_64
+    sudo mv ${install_dir}/${net_port}/etupdate/et*/etl.x86_64 ${install_dir}/${net_port}/etl.x86_64
+    sudo mv ${install_dir}/${net_port}/etupdate/et*/etlded.x86_64 ${install_dir}/${net_port}/etlded.x86_64
     # move other game files and paks
     echo -e "\n${BGreen}Install new version contents${Color_Off}${BWhite}..................${Color_Off}"
-    sudo mv ${install_dir}/etupdate/et*/librenderer_opengl1_x86_64.so ${install_dir}/${net_port}/librenderer_opengl1_x86_64.so
-    sudo mv ${install_dir}/etupdate/et*/legacy/*.pk3 ${install_dir}/${net_port}/legacy/
-    sudo mv ${install_dir}/etupdate/et*/legacy/qagame.mp.x86_64.so ${install_dir}/${net_port}/legacy/
-    sudo mv ${install_dir}/etupdate/et*/legacy/GeoIP.dat ${install_dir}/${net_port}/legacy/
+    sudo mv ${install_dir}/${net_port}/etupdate/et*/librenderer_opengl1_x86_64.so ${install_dir}/${net_port}/librenderer_opengl1_x86_64.so
+    sudo mv ${install_dir}/${net_port}/etupdate/et*/legacy/*.pk3 ${install_dir}/${net_port}/legacy/
+    sudo mv ${install_dir}/${net_port}/etupdate/et*/legacy/qagame.mp.x86_64.so ${install_dir}/${net_port}/legacy/
+    sudo mv ${install_dir}/${net_port}/etupdate/et*/legacy/GeoIP.dat ${install_dir}/${net_port}/legacy/
     echo -e "\n${BRed}Cleanup temporary files${Color_Off}${BWhite}..................${Color_Off}"
-    sudo rm -rf ${install_dir}/etupdate/
-    sudo rm -rf ${install_dir}/etlegacy-server-update.tar.gz
+    sudo rm -rf ${install_dir}/${net_port}/etupdate/
+    sudo rm -rf ${install_dir}/${net_port}/etlegacy-server-update.tar.gz
 }
 
 
