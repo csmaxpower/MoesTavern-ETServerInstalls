@@ -185,7 +185,7 @@ function updateGameServer() {
     fi
 
     echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Setting File Permissions${Color_Off}${BWhite} -------${Color_Off}"
-    setFilePermissions "${install_dir}" "${ftpuser}"
+    #setFilePermissions "${install_dir}" "${ftpuser}"
     
     # restart VSFTP after permissions change
     sudo systemctl restart vsftpd
@@ -385,8 +385,8 @@ function configureVSFTP() {
         yes | sudo mv vsftpd.conf /etc/vsftpd.conf
     fi
     # set FTP permissions for new user
-    sudo usermod -d ${current_dir}/${net_port}/ "${username}"
-    sudo chown -R "${username}":"${username}" ${current_dir}
+    #sudo usermod -d ${current_dir}/${net_port}/ "${username}"
+    #sudo chown -R "${username}":"${username}" ${current_dir}
     sudo chown root:root /etc/vsftpd.conf
     sudo systemctl restart vsftpd
 }

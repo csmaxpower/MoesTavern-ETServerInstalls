@@ -170,11 +170,11 @@ function runInstall() {
     echo -ne "\n${BWhite}Enter the time of day for automatic restart ${Color_Off}${BCyan}(e.g. hh:mm:ss / 5am = 05:00:00)${Color_Off}${BWhite}: ${Color_Off}"
     read -n 8 "restart_time"
     # capture desired username
-    echo -ne "\n${BWhite}Enter a username for FTP access:  ${Color_Off}"
-    read -n 32 "username"
-    echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Setting up user account for ${BCyan}FTP${Color_Off} ${BYellow}access${Color_Off}${BWhite} -------${Color_Off}"
-    echo -e "\n${BWhite}Please enter a password for ${Color_Off}${BCyan}$username${Color_Off}"
-    addUserAccount "${username}"
+    #echo -ne "\n${BWhite}Enter a username for FTP access:  ${Color_Off}"
+    #read -n 32 "username"
+    #echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Setting up user account for ${BCyan}FTP${Color_Off} ${BYellow}access${Color_Off}${BWhite} -------${Color_Off}"
+    #echo -e "\n${BWhite}Please enter a password for ${Color_Off}${BCyan}$username${Color_Off}"
+    #addUserAccount "${username}"
     # Updating server packages
     echo -e "\n${BWhite}------- ${Color_Off}${BYellow}Updating server packages${Color_Off}${BWhite} -------${Color_Off}"
     updateServer
