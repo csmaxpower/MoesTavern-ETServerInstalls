@@ -146,7 +146,7 @@ function runUpdate() {
     sudo mkdir -p etupdate/
     echo "\n${BWhite}------- ${Color_Off}${BYellow}Downloading setup files${Color_Off}${BWhite} -------${Color_Off}"
     sudo wget ${downloadLink} -q --show-progress -O etlegacy-server-update.tar.gz
-    sudo tar -xf etlegacy-server-update.tar.gz -C ${install_dir}/etupdate | /usr/games/lolcat -S 39
+    sudo tar -xf etlegacy-server-update.tar.gz -C ${install_dir}/${net_port}/etupdate | /usr/games/lolcat -S 39
     # account for old arch in builds previous to 2.80.2
     echo -e "\n${BYellow}Move old binaries if found${Color_Off}${BWhite}..................${Color_Off}"
     sudo mv ${install_dir}/${net_port}/etupdate/et*/etl ${install_dir}/${net_port}/etl
