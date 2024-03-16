@@ -143,7 +143,8 @@ function runUpdate() {
     cd ${install_dir}/${net_port}/legacy/
     sudo rm -rf *.pk3
     cd ${install_dir}/${net_port}
-    sudo mkdir -p etupdate/
+    sudo mkdir -p ${install_dir}/${net_port}/etupdate/
+    cd etupdate/
     echo "\n${BWhite}------- ${Color_Off}${BYellow}Downloading setup files${Color_Off}${BWhite} -------${Color_Off}"
     sudo wget ${downloadLink} -q --show-progress -O etlegacy-server-update.tar.gz
     sudo tar -xf etlegacy-server-update.tar.gz -C ${install_dir}/${net_port}/etupdate | /usr/games/lolcat -S 39
