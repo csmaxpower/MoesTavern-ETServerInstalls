@@ -108,7 +108,7 @@ function installMaps() {
     sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sp_delivery_te.pk3
     sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_sp_delivery_v5.pk3
     sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/supply.pk3
-    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_supply_v12.pk3
+    sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/etl_supply_v14.pk3
     sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_battery.pk3
     sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_goldrush_te.pk3
     sudo wget http://moestavern.site.nfoservers.com/downloads/et/etmain/sw_oasis_b3.pk3
@@ -213,8 +213,8 @@ function configureVSFTP() {
     sudo wget http://moestavern.site.nfoservers.com/downloads/server/vsftpd.conf
     yes | sudo mv vsftpd.conf /etc/vsftpd.conf
     # set FTP permissions for new user
-    sudo usermod -d ${current_dir}/et/ "${username}"
-    sudo chown -R "${username}":"${username}" ${current_dir}
+    #sudo usermod -d ${current_dir}/et/ "${username}"
+    #sudo chown -R "${username}":"${username}" ${current_dir}
     sudo chown root:root /etc/vsftpd.conf
     sudo systemctl restart vsftpd
 }

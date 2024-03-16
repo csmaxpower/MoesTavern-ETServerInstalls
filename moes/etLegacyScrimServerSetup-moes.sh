@@ -44,9 +44,9 @@ function main() {
     # capture desired install directory
     read -rp "Set the installation directory (e.g. /home/username):" installDir
     # capture desired username
-    read -rp "Enter a username for FTP access:" username
-    echo 'Setting up user account for FTP access'
-    addUserAccount "${username}"
+    #read -rp "Enter a username for FTP access:" username
+    #echo 'Setting up user account for FTP access'
+    #addUserAccount "${username}"
     # Updating server packages
     echo 'Updating server packages'
     updateServer
